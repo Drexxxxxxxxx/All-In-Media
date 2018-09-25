@@ -101,20 +101,25 @@
                         </div>
                           
                     </div>
-                    <div class="col-lg-4 col-md-4 "> 
+                    <div class="col-lg-4 col-md-4 preview "> 
                         <div class="input_form" >
                             <img src="images/video_plc.jpg" width="100%" height="100%" alt="" srcset="">
                         </div>
                     </div> 
                 </div>
-                <div class="row">
+                <div class="row" style="margin-top:10px">
                     <div class="col-lg-12 col-md-12">
-                        <div class="input_form" >
-                            <label for="file-input">
-                                <i class="fas fa-file-upload"></i>
+                        <div style="text-align:center" >
+                            <label  for="file-input">
+                                <div id="load_icon"></div>
+                            </label> 
+                            <label  for="submit_post">
+                                <div id="submit_icon"></div>
                             </label>
-                            <input class="file-upload" id="file-input" type="file" name="image"><br>
-                            <input type="submit" name="submit" value="Post">
+
+
+                            <input class="file-upload" id="file-input" type="file" name="image">
+                            <input type="submit" id="submit_post" name="submit" value="Post">
                         </div>
                        
                     </div> 
