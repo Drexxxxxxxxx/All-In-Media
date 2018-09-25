@@ -103,7 +103,7 @@
                     </div>
                     <div class="col-lg-4 col-md-4 preview "> 
                         <div class="input_form" >
-                            <img src="images/image_plc.jpg" width="100%" height="100%" alt="" srcset="">
+                            <img src="images/img_plc.png" width="100%" height="100%" alt="" srcset="">
                         </div>
                     </div> 
                 </div>
