@@ -4,3 +4,17 @@
     width:200px;
     height:200px
 }
+.input_form{
+    border:1px solid black;
+    padding: 20px;
+}
+.txt_titulo{
+    width: 100%;
+}
+.txt_textOpcional{
+    width: 100%;
+}
+
+.file-upload{
+    display: none;
+}
