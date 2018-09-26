@@ -10,10 +10,14 @@
 </head>
 <body>
 <form action="" method="post">
+<?php
+include_once 'main.php';
+?>
     <input type="text" name="name"  required="required" placeholder="Insert your name">
     <input type="password" name="password"  required="required" placeholder="Insert your password">
     <input type="submit" value="Login" name="submit">
 </form>
+
 <?php
 if(isset($_POST['submit'])){
     if(isset($_POST['name']) && !empty($_POST['name']) && isset($_POST['password']) && !empty($_POST['password'])) {
@@ -39,12 +43,9 @@ function Loginfunction($name, $password)
     mysqli_close($con);
     if($contador == 1)
     {
-    echo "<script type='text/javascript'>",
-    "SessionLogin(".$idlogin.");",
-    '</script>';
+    SessionLogin($idlogin);
     }
 }
 ?>
-
 </body>
 </html>
