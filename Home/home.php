@@ -123,7 +123,6 @@ function display(){
         <?php 
         $i = 0;
 
-        ?>
       }
       
        </script>
