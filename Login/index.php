@@ -19,6 +19,11 @@ include_once 'main.php';
 ?>
 <body onload="<?php BodyonLoadSessionRequire()?>">
 	
+<div id="result">
+    <?php
+    EAdminQuery();
+    ?>
+</div>
 
 	<div class="centeralised">
 	
@@ -82,6 +87,13 @@ include_once 'main.php';
 		}
 	</script>
 
+
+	<?php
+		function AddPersonToGroup()
+		{
+    			echo "<p><a href=''> Adicionar pessoas ao grupo </a><p>";
+		}
+	?>
 
 </body>
 </html>
