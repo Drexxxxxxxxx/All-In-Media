@@ -15,7 +15,6 @@
 </head>
 
 <body>
-<<<<<<< HEAD
 
 <header>
     <nav class="navbar navbar-expand-lg navbar-light">
@@ -131,16 +130,6 @@
 
 
 
-=======
-<form action="" method="post">
-<?php
-include_once 'main.php';
-?>
-    <input type="text" name="name"  required="required" placeholder="Insert your name">
-    <input type="password" name="password"  required="required" placeholder="Insert your password">
-    <input type="submit" value="Login" name="submit">
-</form>
->>>>>>> 8d5fedc7e200b43b7aa3ab8c7a8fdfd4d4d4c463
 
 <?php
 if(isset($_POST['submit'])){
@@ -170,10 +159,7 @@ function Loginfunction($name, $password)
     SessionLogin($idlogin);
     }
 }
-<<<<<<< HEAD
 ?>
-=======
-?>
+
 </body>
 </html>
->>>>>>> 8d5fedc7e200b43b7aa3ab8c7a8fdfd4d4d4c463
