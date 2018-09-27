@@ -90,6 +90,8 @@
         <div>
                 <a href="#head"><img src="images/add_button.png" id="fixedbutton"></a>
         </div>
+
+        <div class="Adicionarppldiv"> </div>
 <?php   
 echo "<script>alert('test');</script>";
 display();
@@ -161,8 +163,10 @@ function display(){
   
   function myFunction(ola) {
   alert("radio selected"+ola);
-  var myData = ola;
-  window.location = 'likes_dislikes.php?myData=' + myData;
+			$.post('handlers/ajax.php?action=AdicionarPessoa&ola='+ola, function(response){
+				
+				$('.Adicionarppldiv').html(response);
+			});
   }
   
    </script>

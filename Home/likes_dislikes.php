@@ -7,7 +7,5 @@ $con = mysqli_connect("localhost","root","", "phpteste");
 			echo"sucess";
 			
 		}
-        mysqli_close($con);
-        
-        
-    ?>    
+        mysqli_close($con);   
+?>    
