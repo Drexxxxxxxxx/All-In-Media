@@ -1,0 +1,47 @@
+
+
+#username{
+    background: transparent;
+    color: black;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #4776E6;
+    font-size: 20px;
+}
+
+#password{
+    background: transparent;
+    color: black;
+    border: none;
+    width: 100%;
+    border-bottom: 1px solid #4776E6;
+    font-size: 20px;
+}
+
+#btn_login{
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    background-color:  #4776E6;
+    transition: 0.3s;
+    width: 70%;
+
+}#btn_login:hover{
+    
+    background-color:  white;
+
+}
+
+#lbl_user{
+    display: none;
+}
+#lbl_password{
+    display:none;
+}
+.staticImg{
+    background: url('../images/bluestatic.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    max-height: 550px;
+}
