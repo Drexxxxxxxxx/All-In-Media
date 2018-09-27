@@ -40,7 +40,7 @@ if( isset($_REQUEST['action']) ){
 			
 			$chat = '';
 			foreach( $rs as $r ){
-				if($_SESSION['id'] == $r->idPedido)
+				if($_SESSION['id'] != $r->idPedido)
 				{
 					$chat .=  '<div class="siglemessagse"><strong>'.$r->nome.' says: ' .$r->idPedido. '</strong></div>';
 				}
