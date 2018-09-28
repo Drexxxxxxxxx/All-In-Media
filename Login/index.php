@@ -25,6 +25,8 @@ include_once 'main.php';
     ?>
 </div>
 
+<div class="Adicionarppldiv"></div>
+
 	<div class="centeralised">
 	
 	<div class="chathistory"></div>
@@ -85,13 +87,22 @@ include_once 'main.php';
     		}
     		return vars;
 		}
+
+		function AddPersonBtn1()
+		{
+			var urlval = getUrlVars()["idgrupo"];
+			$.post('handlers/ajax.php?action=AdicionarPessoa&idgrupo='+urlval, function(response){
+				
+				$('.Adicionarppldiv').html(response);
+			});
+		}
 	</script>
 
 
 	<?php
 		function AddPersonToGroup()
 		{
-    			echo "<p><a href=''> Adicionar pessoas ao grupo </a><p>";
+    			echo "<p><button onclick='AddPersonBtn1()'> Adicionar pessoas ao grupo </button><p>";
 		}
 	?>
 

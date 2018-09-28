@@ -28,9 +28,32 @@ if( isset($_REQUEST['action']) ){
 			echo $chat;
 		}
 		break;
+		case "AdicionarPessoa":
+		session_start();
+		$GrupoId=$_REQUEST['idgrupo'];
+		if(grupoedele($GrupoId) == 1)
+		{
+		//Trocar o grupo 1 pelo numero do grupo selecionado
+			$query = $db->prepare("select amigos.*, users.name  AS nome FROM amigos, users WHERE ((idPedido = ".$_SESSION['id']." AND idPedido = users.id) OR (idAceitar = ".$_SESSION['id']." AND idAceitar = users.id)) AND Aceite = 1");
+			$query->execute();
+			$rs = $query->fetchAll(PDO::FETCH_OBJ);
+			
+			$chat = '';
+			foreach( $rs as $r ){
+				if($_SESSION['id'] != $r->idPedido)
+				{
+					$chat .=  '<div class="siglemessagse"><strong>'.$r->nome.' says: ' .$r->idPedido. '</strong></div>';
+				}
+				else
+				{
+					$chat .=  '<div class="siglemessasge"><strong>'.$r->nome.' says: ' .$r->idAceitar. ' </strong></div>';
+				}
+			}
+			echo $chat;
+		break;
 	}
+  }
 }
-
 function grupoedele($id)
 {
     $con = mysqli_connect("localhost","root","", "phpteste");
