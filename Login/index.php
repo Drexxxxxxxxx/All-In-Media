@@ -96,6 +96,15 @@ include_once 'main.php';
 				$('.Adicionarppldiv').html(response);
 			});
 		}
+
+		function Addpersonahref()
+		{
+			var urlval = getUrlVars()["idgrupo"];
+			$.post('handlers/ajax.php?action=AdicionarPessoa&idgrupo='+urlval, function(response){
+				
+				$('.Adicionarppldiv').html(response);
+			});
+		}
 	</script>
 
 
