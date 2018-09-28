@@ -10,7 +10,9 @@
 }
 
 .chathistory{
-	min-height:600px;
+    min-height:600px;
+    max-height: 600px;
+    overflow: auto;
 	width:600px;
 	margin:10px auto;
 	padding:10px;

@@ -97,10 +97,11 @@ include_once 'main.php';
 			});
 		}
 
-		function Addpersonahref()
+		function Addpersonahref($id)
 		{
+			alert("fas");
 			var urlval = getUrlVars()["idgrupo"];
-			$.post('handlers/ajax.php?action=AdicionarPessoa&idgrupo='+urlval, function(response){
+			$.post('handlers/ajax.php?action=AdicionarPersonahref&idpessoa='+$id+'&idgrupo='+urlval, function(response){
 				
 				$('.Adicionarppldiv').html(response);
 			});

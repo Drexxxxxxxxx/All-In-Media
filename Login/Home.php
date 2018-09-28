@@ -18,16 +18,31 @@ include_once 'main.php';
 <div id="result">
     <?php
     GruposChat();
+    InvitesGrupo();
     ?>
 </div>
 <textarea class="txtarea" id="message" name="message"> <?php BodyonLoad() ?></textarea>
 
-
+<script>
+function AceitarPedido(id)
+{
+	$.post('handlers/ajax.php?action=AceitarPdd&id='+id, function(response){			
+       location.replace("Home.php");
+    });
+}
+</script>
 
 <?php
 function Addtodivgrupo($Nome, $link)
 {
     echo "<p><a href='".$link."'>".$Nome."</a><p>";
+}
+?>
+
+<?php
+function Invites($Nome, $link)
+{
+    echo "<p><button onclick=AceitarPedido(".$link.")>".$Nome."</button><p>";
 }
 ?>
 </body>
