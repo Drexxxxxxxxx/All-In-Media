@@ -115,7 +115,7 @@ function display(){
       <span class="checkmark"></span>
     
     Dislike
-      <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction('.$id.')">
+      <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction2('.$id.')">
       <span class="checkmark"></span>
     </label><textarea rows="3" cols="50">
    
@@ -162,13 +162,23 @@ function display(){
 <script>
   
   function myFunction(ola) {
-  alert("radio selected"+ola);
+ 
 			$.post('handlers/ajax.php?action=AdicionarPessoa&ola='+ola, function(response){
 				
 				$('.Adicionarppldiv').html(response);
 			});
   }
-  
+
+
+
+  function myFunction2(ola) {
+ 
+ $.post('handlers/ajax.php?action=Dislike&ola='+ola, function(response){
+   
+   $('.Adicionarppldiv').html(response);
+ });
+}
+
    </script>
 
 
