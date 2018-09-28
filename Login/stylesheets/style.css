@@ -17,6 +17,14 @@
     border-bottom: 1px solid #4776E6;
     font-size: 20px;
 }
+#email{
+    background: transparent;
+    color: black;
+    border: none;
+    width: 100%;
+    border-bottom: 1px solid #4776E6;
+    font-size: 20px;
+}
 
 #btn_login{
     border: 1px solid black;
@@ -39,9 +47,22 @@
     display:none;
 }
 .staticImg{
-    background: url('../images/bluestatic.jpg') no-repeat;
+    background: url('../images/gif.gif') no-repeat;
     background-size: cover;
     background-position: center;
     height: 100%;
     max-height: 550px;
+    min-height: 200px;
+    border-radius: 5px;
 }
+
+.staticImg_SignUp{
+    background: url('../images/gif2.gif') no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    max-height: 550px;
+    min-height: 200px;
+    border-radius: 5px;
+}
+

@@ -6,7 +6,6 @@
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="..\_MasterPage\stylesheets\css_index.css" /> 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets\style.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -17,7 +16,9 @@
 include_once 'main.php';
 ?>
 <body>
-
+<?php
+include_once 'main.php';
+?>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
@@ -89,22 +90,29 @@ include_once 'main.php';
         <form action="" method="post">
             <div class="container">
                 <div class="row" style="">
-                    <div class="col-lg-2 col-md-2">
+                    <div class="col-lg-3 col-md-3 col-sm-0 col-xs-0">
                         <div class="staticImg">
 
                         </div>
 
                     </div>
-                    <div class="col-lg-10 col-md-10 ">
+                    <div class="col-lg-9 col-md-9  ">
                         &nbsp;
-                        <h1 style="text-align:center"> Iniciar Sessão </h1>
-                    
-                        <label id="lbl_user" for="username"> Username </label><br>
-                        <input type="text" name="name" id="username"  required="required" placeholder="Insert your name"><br><br>
-                        <label id="lbl_password" for="password"> Password </label><br>
-                        <input type="password" name="password" id="password"  required="required" placeholder="Insert your password"><br><br>
-                        <input type="submit" id="btn_login" value="Login" name="submit">
-                    
+                        <fieldset>
+                        <hr>
+                            <h1 style="text-align:left"> Sign In </h1>
+                            
+                            <label id="lbl_user" for="username"> Username </label><br>
+                            <input type="text" name="name" id="username"  required="required" placeholder="Insert your name"><br><br>
+                            <label id="lbl_password" for="password"> Password </label><br>
+                            <input type="password" name="password" id="password"  required="required" placeholder="Insert your password"><br><br>
+                            <input type="submit" id="btn_login" value="Login" name="submit"><br><br>
+                            <a href=""> Forgot Password </a><br><br>
+                            New to All In Media? <a href=""> Sign Up </a><br><br>
+                            By signing up, you agree to our <a href="">Terms</a> and that you have read our <a href="">Privacy Policy</a>  and <a href="">Content Policy</a>.<br><br>
+                        <hr>
+                        </fieldset>
+                        
                     </div>
                     
                 </div>

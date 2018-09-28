@@ -23,7 +23,15 @@ if( isset($_REQUEST['action']) ){
 			
 			$chat = '';
 			foreach( $rs as $r ){
+				if($r->isimage==1)
+				{
+
+					$chat .=  '<div class="siglemessage"><strong>'.$r->name.' says:  </strong><img class="img" src="data:image;base64,'.$r->message.'"></div>';
+				}
+				else
+				{
 				$chat .=  '<div class="siglemessage"><strong>'.$r->name.' says:  </strong>'.$r->message.'</div>';
+				}
 			}
 			echo $chat;
 		}
