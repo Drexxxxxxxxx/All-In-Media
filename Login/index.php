@@ -33,10 +33,11 @@ include_once 'main.php';
 
 	<div class="chatbox">
 		
-		<form action="" method="POST">
+		<form action="" method="POST" enctype="multipart/form-data">
 			
-			<textarea class="txtarea" id="message" name="message"></textarea>
-
+			<textarea class="txtarea" id="message" name="message"></textarea><br><br>
+			<input class="file-upload" id="file-input" type="file" name="image" onclick="myFunction2('.$id.')"/>
+	<input type="submit" id="submit_post" name="submit" value="Post"/>
 		</form>
 
 	</div>
@@ -44,9 +45,12 @@ include_once 'main.php';
 	</div>
 
 
-	
+
 
 	<script>
+
+
+
 		$(document).ready(function(){
 			loadChat();
 		});
@@ -105,10 +109,42 @@ include_once 'main.php';
 				$('.Adicionarppldiv').html(response);
 			});
 		}
+
+		
+	
 	</script>
 
 
 	<?php
+		if(isset($_POST['submit'])){
+			if(getimagesize($_FILES['image']['tmp_name'])==FALSE){
+				echo"failed";
+				
+			}
+			else{
+				$name=addslashes($_FILES['image']['name']);
+				$image=base64_encode(file_get_contents(addslashes($_FILES['image']['tmp_name'])));
+				saveimage($name,$image);
+			}
+			}
+	
+			function saveimage ($name, $image)
+			{
+		
+			$con = mysqli_connect("localhost","root","", "phpteste");
+			$sql="insert INTO chat SET idQuemEnviou=17, message='$image', idGrupo=1, isimage=1" ;
+			$query=mysqli_query($con,$sql);
+			echo $image;
+			if($query){
+			echo"sucess";
+			}
+			else {
+				echo "n deu";
+			}
+			mysqli_close($con);
+		
+			}
+
 		function AddPersonToGroup()
 		{
     			echo "<p><button onclick='AddPersonBtn1()'> Adicionar pessoas ao grupo </button><p>";
