@@ -34,7 +34,7 @@ if( isset($_REQUEST['action']) ){
 		if(grupoedele($GrupoId) == 1)
 		{
 		//Trocar o grupo 1 pelo numero do grupo selecionado
-			$query = $db->prepare("select amigos.*, users.name  AS nome FROM amigos, users WHERE ((idPedido = ".$_SESSION['id']." AND idPedido = users.id) OR (idAceitar = ".$_SESSION['id']." AND idAceitar = users.id)) AND Aceite = 1");
+			$query = $db->prepare("select amigos.*, users.name  AS nome FROM amigos, users WHERE ((idPedido = ".$_SESSION['id']." AND idAceitar = users.id) OR (idAceitar = ".$_SESSION['id']." AND idPedido = users.id)) AND Aceite = 1");
 			$query->execute();
 			$rs = $query->fetchAll(PDO::FETCH_OBJ);
 			
@@ -42,11 +42,11 @@ if( isset($_REQUEST['action']) ){
 			foreach( $rs as $r ){
 				if($_SESSION['id'] != $r->idPedido)
 				{
-					$chat .=  '<div class="siglemessagse"><strong>'.$r->nome.' says: ' .$r->idPedido. '</strong></div>';
+					$chat .=  '<button href="Addpersonahref('.$r->idPedido.')" class="siglemessagse"><strong>'.$r->nome.'</strong></button>';
 				}
 				else
 				{
-					$chat .=  '<div class="siglemessasge"><strong>'.$r->nome.' says: ' .$r->idAceitar. ' </strong></div>';
+					$chat .=  '<button href="Addpersonahref('.$r->idAceitar.')" class="siglemessasge"><strong>'.$r->nome.'</strong></button>';
 				}
 			}
 			echo $chat;
