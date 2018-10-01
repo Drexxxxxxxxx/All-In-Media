@@ -87,7 +87,7 @@
         <div>
                 <div class="container">
                         <div style="">
-                                        <nav class="navbar navbar-light bg-light justify-content-between">
+                                        <nav class="navbar navbar-light bg-light justify-content-between nvb_perfil">
                                                         <a class="navbar-brand"><i class="fas fa-arrow-left"> </i>  Nome</a>
                                                         <form class="form-inline">
                                                                 <a class="nav-link " style="padding:10px" href="#"><i class="fas fa-video"></i></a>
@@ -100,28 +100,46 @@
 
                                         <br>
                                         <div class="row">
-                                                <div class="col-lg-11 col-md-11 col-sm-10 col-xs-10">
-                                                    <div>
-                                                            <textarea  name="msg" id="msg"></textarea>
-                                                            <i class="far fa-grin emoji"></i>
-                                                            <i class="fas fa-paperclip atach"></i>
-                                                            <i class="fas fa-camera photo"></i>
-                                                    </div>
-                                                    
-                                                        
-                                                </div>
-                                                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
-                                                        <div class="send_btn">
-                                                             
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                         <div class="user_sms">
+                                                                <p> Olá babe tudo bem </p>
                                                         </div>
-                                                        
-                                                            
-                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="friend_sms">
+                                                                       <p> Esta tudo e por ai? </p>
+                                                               </div>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="user_sms">
+                                                                       <p> Tudo mal :( </p>
+                                                               </div>
+                                                       </div>
+                                         
                                                
-                                                
-        
+
                                         </div>
-                                        <hr>
+                                        &nbsp;
+                                        <div style="    position: absolute;
+                                        bottom: 5%;
+                                        width: 90%;">
+                                                        <div class="row">
+
+                                                                        <div class="col-lg-11 col-md-11 col-sm-10 col-10" >
+                                                                                <textarea  name="msg" id="msg"></textarea>
+                                                                        </div>
+                                                                        <div class="col-lg-1 col-md-1 col-sm-2 col-2" >
+                                                                                <div class="send_btn">
+                                                                                     
+                                                                                </div>
+                                                                        </div>
+                                                                                   
+                        
+                                
+                                                                </div>
+                                        </div>
+                                        
+                                        
                                                                                
         
                         </div>
@@ -139,5 +157,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="script.js"></script>
+<script>
+$('#msg').autoResize();
+</script>
 </html>
