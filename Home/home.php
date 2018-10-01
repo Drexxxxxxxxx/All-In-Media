@@ -66,7 +66,6 @@
                         </div>
                         
                 </nav>
-               
                         <div id="sidenav" >
                      
                                 <div id="sidenav_menu">

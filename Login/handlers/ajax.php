@@ -17,13 +17,21 @@ if( isset($_REQUEST['action']) ){
 		if(grupoedele($GrupoId) == 1)
 		{
 		//Trocar o grupo 1 pelo numero do grupo selecionado
-			$query = $db->prepare("select chat.*, grupo.nome, users.name, users.password, users.email from chat, users, grupo WHERE grupo.id = $GrupoId AND idQuemEnviou = users.id");
+			$query = $db->prepare("select chat.*, grupo.nome, users.name, users.password, users.email from chat, users, grupo WHERE grupo.id = $GrupoId AND idQuemEnviou = users.id GROUP By id");
 			$query->execute();
 			$rs = $query->fetchAll(PDO::FETCH_OBJ);
 			
 			$chat = '';
 			foreach( $rs as $r ){
+				if($r->isimage==1)
+				{
+
+					$chat .=  '<div class="siglemessage"><strong>'.$r->name.' says:  </strong><img class="img" src="data:image;base64,'.$r->message.'"></div>';
+				}
+				else
+				{
 				$chat .=  '<div class="siglemessage"><strong>'.$r->name.' says:  </strong>'.$r->message.'</div>';
+				}
 			}
 			echo $chat;
 		}
@@ -42,16 +50,32 @@ if( isset($_REQUEST['action']) ){
 			foreach( $rs as $r ){
 				if($_SESSION['id'] != $r->idPedido)
 				{
-					$chat .=  '<button href="Addpersonahref('.$r->idPedido.')" class="siglemessagse"><strong>'.$r->nome.'</strong></button>';
+					$chat .=  '<button onclick="Addpersonahref('.$r->idPedido.')" class="siglemessagse"><strong>'.$r->nome.'</strong></button>';
 				}
 				else
 				{
-					$chat .=  '<button href="Addpersonahref('.$r->idAceitar.')" class="siglemessasge"><strong>'.$r->nome.'</strong></button>';
+					$chat .=  '<button onclick="Addpersonahref('.$r->idAceitar.')" class="siglemessasge"><strong>'.$r->nome.'</strong></button>';
 				}
 			}
 			echo $chat;
+		}
 		break;
-	}
+		case "AdicionarPersonahref":
+		echo '<script>alert("hello!");</script>';
+		session_start();
+		if(grupoedele($_REQUEST['idgrupo']) == 1)
+		{
+		echo '<script>alert("hello!");</script>';
+		
+			$query = $db->prepare("insert INTO pessoasdogrupo SET idpessoa=?, idgrupo=?, IsAdmin=3");
+			$query->execute([$_REQUEST['idpessoa'],  $_REQUEST['idgrupo']]);
+		}
+		break;
+		case "AceitarPdd":
+		session_start();
+			$query = $db->prepare("update pessoasdogrupo SET IsAdmin=0 WHERE id=?");
+			$query->execute([$_REQUEST['id']]);
+		break;
   }
 }
 function grupoedele($id)
