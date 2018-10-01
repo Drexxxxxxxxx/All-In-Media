@@ -109,8 +109,6 @@ function display(){
       $result=mysqli_fetch_array($query);
       $img=$result['imagem'];
       $id=$result['id'];
-      if(!$img=="")
-      { 
           $dbhost = "localhost";
           $dbname = "phpteste";
           $dbuser = "root";
@@ -132,6 +130,8 @@ function display(){
 
         if($contador == 1)
         {
+          if(!$img=="")
+          { 
           echo '<img class="img" src="data:image;base64,'.$img.'"><br><label class="container">Like
           <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateLike('.$id.')">
           <span class="checkmark"></span>
@@ -142,10 +142,31 @@ function display(){
         </label><textarea rows="3" cols="50">
        
         </textarea><br><br><br><br>';
+          }
+          else
+          {
+            $video=$result['video'];
+            echo '<video width="400" height="300" controls>';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/mp4">';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/ogg"><br><br><br>';
+           echo '</video>';
+            echo '<label class="container">Like
+            <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateLike('.$id.')">
+            <span class="checkmark"></span>
+          
+          Dislike
+            <input type="radio" value="radio" name="radio'.$id.'" onchange="updateDislike('.$id.')">
+            <span class="checkmark"></span>
+          </label><textarea rows="3" cols="50">
+         
+          </textarea><br><br><br><br>';
+          }
         }
 
         if($contador == 2)
         {
+          if(!$img=="")
+          { 
           echo '<img class="img" src="data:image;base64,'.$img.'"><br><label class="container">Like
           <input type="radio" value="radio" name="radio'.$id.'" onchange="updateLike('.$id.')">
           <span class="checkmark"></span>
@@ -156,10 +177,31 @@ function display(){
         </label><textarea rows="3" cols="50">
        
         </textarea><br><br><br><br>';
+          }
+          else
+          {
+            $video=$result['video'];
+            echo '<video width="400" height="300" controls>';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/mp4">';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/ogg"><br><br><br>';
+           echo '</video>';
+            echo '<label class="container">Like
+            <input type="radio" value="radio" name="radio'.$id.'" onchange="updateLike('.$id.')">
+            <span class="checkmark"></span>
+          
+          Dislike
+            <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateDislike('.$id.')">
+            <span class="checkmark"></span>
+          </label><textarea rows="3" cols="50">
+         
+          </textarea><br><br><br><br>';
+          }
         }       
 
         if($contador == 0)
         {
+          if(!$img=="")
+          { 
           echo '<img class="img" src="data:image;base64,'.$img.'"><br><label class="container">Like
           <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction('.$id.')">
           <span class="checkmark"></span>
@@ -170,28 +212,25 @@ function display(){
         </label><textarea rows="3" cols="50">
        
         </textarea><br><br><br><br>';
+          }
+          else{
+            $video=$result['video'];
+            echo '<video width="400" height="300" controls>';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/mp4">';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/ogg"><br><br><br>';
+           echo '</video>';
+           echo '<label class="container">Like
+           <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction('.$id.')">
+           <span class="checkmark"></span>
+         
+         Dislike
+           <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction2('.$id.')">
+           <span class="checkmark"></span>
+         </label><textarea rows="3" cols="50">
+        
+         </textarea><br><br><br><br>';
+          }
         }  
-      }
-      
-      else
-      {
-        $video=$result['video'];
-        echo '<video width="400" height="300" controls>';
-        echo '<source class="img" src="'.$video.'" type="video/mp4">';
-        echo '<source class="img" src="'.$video.'" type="video/ogg"><br><br><br>';
-       echo '</video>';
-       echo '<label class="container">Like
-       <input type="radio" name="radio'.$id.'">
-       <span class="checkmark"></span>
-     
-     Dislike
-       <input type="radio" name="radio'.$id.'">
-       <span class="checkmark"></span>
-     </label>';
-       $count=$count+1;
-     }
-  
- 
   }
 
 
