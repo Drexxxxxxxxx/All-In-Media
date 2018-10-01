@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +8,7 @@ session_start();
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/css_index.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
+
 
 </head>
 <body>
@@ -69,6 +63,7 @@ session_start();
                         </div>
                         
                 </nav>
+               
                         <div id="sidenav" >
                      
                                 <div id="sidenav_menu">
@@ -90,163 +85,59 @@ session_start();
         </header>
 
         <div>
-                <a href="#head"><img src="images/add_button.png" id="fixedbutton"></a>
+                <div class="container">
+                        <div style="">
+                                        <nav class="navbar navbar-light bg-light justify-content-between">
+                                                        <a class="navbar-brand"><i class="fas fa-arrow-left"> </i>  Nome</a>
+                                                        <form class="form-inline">
+                                                                <a class="nav-link " style="padding:10px" href="#"><i class="fas fa-video"></i></a>
+                                                                <a class="nav-link " style="padding:10px" href="#"><i class="fas fa-phone"></i></a>
+                                                                <a class="nav-link " style="padding:10px" href="#"><i class="fas fa-ellipsis-v"></i></a>
+                                                        </form>
+                                        </nav>
+                                        
+                                        
+
+                                        <br>
+                                        <div class="row">
+                                                <div class="col-lg-11 col-md-11 col-sm-10 col-xs-10">
+                                                    <div>
+                                                            <textarea  name="msg" id="msg"></textarea>
+                                                            <i class="far fa-grin emoji"></i>
+                                                            <i class="fas fa-paperclip atach"></i>
+                                                            <i class="fas fa-camera photo"></i>
+                                                    </div>
+                                                    
+                                                        
+                                                </div>
+                                                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+                                                        <div class="send_btn">
+                                                             
+                                                        </div>
+                                                        
+                                                            
+                                                    </div>
+                                               
+                                                
+        
+                                        </div>
+                                        <hr>
+                                                                               
+        
+                        </div>
+                        
+                                
+                </div>
+
+
+
+               
         </div>
-
-        <div class="Adicionarppldiv"> </div>
-<?php   
-echo "<script>alert('test');</script>";
-display();
-function display(){
-  $con = mysqli_connect("localhost","root","", "phpteste");
-  $sql = "select * from conteudo order by id DESC";
-  
-   $query=mysqli_query($con,$sql);
-  $num=mysqli_num_rows($query);
-  $count=0;
-  echo '<form action="home.php" method="post">';
-  for($i=0;$i<$num;$i++){
-      $result=mysqli_fetch_array($query);
-      $img=$result['imagem'];
-      $id=$result['id'];
-      if(!$img=="")
-      { 
-          $dbhost = "localhost";
-          $dbname = "phpteste";
-          $dbuser = "root";
-          $dbpass = '';
-          try{
-            $db = new PDO("mysql:dbhost=$dbhost;dbname=$dbname", "$dbuser", "$dbpass");
-          }catch(PDOException $e){
-            echo $e->getMessage();
-          }
-          $contador = 0;
-        $query2 = $db->prepare("select * FROM likesconteudo WHERE iduser = '".$_SESSION['id']."' AND idConteudo = '" .$id."'");
-        $query2->execute();
-        $rs = $query2->fetchAll(PDO::FETCH_OBJ);
-        
-        $chat = '';
-        foreach( $rs as $r ){
-          $contador = $r->LikeDislike;
-        }
-
-        if($contador == 1)
-        {
-          echo '<img class="img" src="data:image;base64,'.$img.'"><br><label class="container">Like
-          <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateLike('.$id.')">
-          <span class="checkmark"></span>
-        
-        Dislike
-          <input type="radio" value="radio" name="radio'.$id.'" onchange="updateDislike('.$id.')">
-          <span class="checkmark"></span>
-        </label><textarea rows="3" cols="50">
-       
-        </textarea><br><br><br><br>';
-        }
-
-        if($contador == 2)
-        {
-          echo '<img class="img" src="data:image;base64,'.$img.'"><br><label class="container">Like
-          <input type="radio" value="radio" name="radio'.$id.'" onchange="updateLike('.$id.')">
-          <span class="checkmark"></span>
-        
-        Dislike
-          <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateDislike('.$id.')">
-          <span class="checkmark"></span>
-        </label><textarea rows="3" cols="50">
-       
-        </textarea><br><br><br><br>';
-        }       
-
-        if($contador == 0)
-        {
-          echo '<img class="img" src="data:image;base64,'.$img.'"><br><label class="container">Like
-          <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction('.$id.')">
-          <span class="checkmark"></span>
-        
-        Dislike
-          <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction2('.$id.')">
-          <span class="checkmark"></span>
-        </label><textarea rows="3" cols="50">
-       
-        </textarea><br><br><br><br>';
-        }  
-      }
-      
-      else
-      {
-        $video=$result['video'];
-        echo '<video width="400" height="300" controls>';
-        echo '<source class="img" src="'.$video.'" type="video/mp4">';
-        echo '<source class="img" src="'.$video.'" type="video/ogg"><br><br><br>';
-       echo '</video>';
-       echo '<label class="container">Like
-       <input type="radio" name="radio'.$id.'">
-       <span class="checkmark"></span>
-     
-     Dislike
-       <input type="radio" name="radio'.$id.'">
-       <span class="checkmark"></span>
-     </label>';
-       $count=$count+1;
-     }
-  
- 
-  }
-
-
-  echo '</form>';
-
-
-}
-
-
-
-
-
-?>
-
-<script>
-  
-  function updateLike(ola) {
- 
-			$.post('handlers/ajax.php?action=LikeUpdate&ola='+ola, function(response){
-				
-				$('.Adicionarppldiv').html(response);
-			});
-  }
-
-    function updateDislike(ola) {
- 
- $.post('handlers/ajax.php?action=DislikeUpdate&ola='+ola, function(response){
-   
-   $('.Adicionarppldiv').html(response);
- });
-}
-
-  function myFunction(ola) {
- 
- $.post('handlers/ajax.php?action=Like&ola='+ola, function(response){
-   
-   $('.Adicionarppldiv').html(response);
- });
-}
-
-  function myFunction2(ola) {
- 
- $.post('handlers/ajax.php?action=Dislike&ola='+ola, function(response){
-   
-   $('.Adicionarppldiv').html(response);
- });
-}
-
-   </script>
-
 
 </body>
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="script.js"></script>
-
 </html>
