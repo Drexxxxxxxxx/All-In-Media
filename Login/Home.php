@@ -15,6 +15,7 @@
 include_once 'main.php';
 ?>
 <body onload="<?php BodyonLoadSessionRequire();?>">
+
 <div id="result">
     <?php
     GruposChat();

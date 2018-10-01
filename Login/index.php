@@ -36,10 +36,14 @@ include_once 'main.php';
 		<form action="" method="POST" enctype="multipart/form-data">
 			
 			<textarea class="txtarea" id="message" name="message"></textarea><br><br>
-			<input class="file-upload" id="file-input" type="file" name="image" onclick="myFunction2('.$id.')"/>
-	<input type="submit" id="submit_post" name="submit" value="Post"/>
+		Imagem:<input class="file-upload" id="file-input" type="file" name="image" onclick="myFunction2('.$id.')"/>
+	<input type="submit" id="submit_post" name="submit" value="Post"/><br><br><br>
+	
 		</form>
-
+		<form action="Upload.php" method="post" enctype="multipart/form-data">
+		Video:<input class="file-upload" id="file-input" name="fileToUpload" type="file" accept="video/*">
+		<input type="submit" id="submit_post" name="submit" value="Post">
+		</form>
 	</div>
 
 	</div>
@@ -135,7 +139,7 @@ include_once 'main.php';
 			$con = mysqli_connect("localhost","root","", "phpteste");
 			$sql="insert INTO chat SET idQuemEnviou=17, message='$image', idGrupo=1, isimage=1" ;
 			$query=mysqli_query($con,$sql);
-			echo $image;
+		
 			if($query){
 			echo"sucess";
 			}

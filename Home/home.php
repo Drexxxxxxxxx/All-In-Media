@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,54 +99,138 @@ echo "<script>alert('test');</script>";
 display();
 function display(){
   $con = mysqli_connect("localhost","root","", "phpteste");
-  $sql = "select * from conteudo order by id Desc";
+  $sql = "select * from conteudo order by id DESC";
   
    $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);
   $count=0;
-
   echo '<form action="home.php" method="post">';
   for($i=0;$i<$num;$i++){
       $result=mysqli_fetch_array($query);
       $img=$result['imagem'];
       $id=$result['id'];
-      if(!$img=="")
-      { 
-      echo '<img class="img" src="data:image;base64,'.$img.'"><br><label class="container">Like
-      <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction('.$id.')">
-      <span class="checkmark"></span>
-    
-    Dislike
-      <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction2('.$id.')">
-      <span class="checkmark"></span>
-    </label><textarea rows="3" cols="50">
-   
-    </textarea><br><br><br><br>';
-    echo "$id";
-      $count=$count+1;
+          $dbhost = "localhost";
+          $dbname = "phpteste";
+          $dbuser = "root";
+          $dbpass = '';
+          try{
+            $db = new PDO("mysql:dbhost=$dbhost;dbname=$dbname", "$dbuser", "$dbpass");
+          }catch(PDOException $e){
+            echo $e->getMessage();
+          }
+          $contador = 0;
+        $query2 = $db->prepare("select * FROM likesconteudo WHERE iduser = '".$_SESSION['id']."' AND idConteudo = '" .$id."'");
+        $query2->execute();
+        $rs = $query2->fetchAll(PDO::FETCH_OBJ);
+        
+        $chat = '';
+        foreach( $rs as $r ){
+          $contador = $r->LikeDislike;
+        }
 
+        if($contador == 1)
+        {
+          if(!$img=="")
+          { 
+          echo '<img class="img" src="data:image;base64,'.$img.'"><br><label class="container">Like
+          <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateLike('.$id.')">
+          <span class="checkmark"></span>
+        
+        Dislike
+          <input type="radio" value="radio" name="radio'.$id.'" onchange="updateDislike('.$id.')">
+          <span class="checkmark"></span>
+        </label><textarea rows="3" cols="50">
+       
+        </textarea><br><br><br><br>';
+          }
+          else
+          {
+            $video=$result['video'];
+            echo '<video width="400" height="300" controls>';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/mp4">';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/ogg"><br><br><br>';
+           echo '</video>';
+            echo '<label class="container">Like
+            <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateLike('.$id.')">
+            <span class="checkmark"></span>
+          
+          Dislike
+            <input type="radio" value="radio" name="radio'.$id.'" onchange="updateDislike('.$id.')">
+            <span class="checkmark"></span>
+          </label><textarea rows="3" cols="50">
+         
+          </textarea><br><br><br><br>';
+          }
+        }
 
-      }
-      
-      else
-      {
-        $video=$result['video'];
-        echo '<video width="400" height="300" controls>';
-        echo '<source class="img" src="'.$video.'" type="video/mp4">';
-        echo '<source class="img" src="'.$video.'" type="video/ogg"><br><br><br>';
-       echo '</video>';
-       echo '<label class="container">Like
-       <input type="radio" name="radio'.$id.'">
-       <span class="checkmark"></span>
-     
-     Dislike
-       <input type="radio" name="radio'.$id.'">
-       <span class="checkmark"></span>
-     </label>';
-       $count=$count+1;
-     }
-  
- 
+        if($contador == 2)
+        {
+          if(!$img=="")
+          { 
+          echo '<img class="img" src="data:image;base64,'.$img.'"><br><label class="container">Like
+          <input type="radio" value="radio" name="radio'.$id.'" onchange="updateLike('.$id.')">
+          <span class="checkmark"></span>
+        
+        Dislike
+          <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateDislike('.$id.')">
+          <span class="checkmark"></span>
+        </label><textarea rows="3" cols="50">
+       
+        </textarea><br><br><br><br>';
+          }
+          else
+          {
+            $video=$result['video'];
+            echo '<video width="400" height="300" controls>';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/mp4">';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/ogg"><br><br><br>';
+           echo '</video>';
+            echo '<label class="container">Like
+            <input type="radio" value="radio" name="radio'.$id.'" onchange="updateLike('.$id.')">
+            <span class="checkmark"></span>
+          
+          Dislike
+            <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateDislike('.$id.')">
+            <span class="checkmark"></span>
+          </label><textarea rows="3" cols="50">
+         
+          </textarea><br><br><br><br>';
+          }
+        }       
+
+        if($contador == 0)
+        {
+          if(!$img=="")
+          { 
+          echo '<img class="img" src="data:image;base64,'.$img.'"><br><label class="container">Like
+          <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction('.$id.')">
+          <span class="checkmark"></span>
+        
+        Dislike
+          <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction2('.$id.')">
+          <span class="checkmark"></span>
+        </label><textarea rows="3" cols="50">
+       
+        </textarea><br><br><br><br>';
+          }
+          else{
+            $video=$result['video'];
+            echo '<video width="400" height="300" controls>';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/mp4">';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/ogg"><br><br><br>';
+           echo '</video>';
+           echo '<label class="container">Like
+           <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction('.$id.')">
+           <span class="checkmark"></span>
+         
+         Dislike
+           <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction2('.$id.')">
+           <span class="checkmark"></span>
+         </label><textarea rows="3" cols="50">
+        
+         </textarea><br><br><br><br>';
+          }
+        }  
   }
 
 
@@ -160,15 +247,29 @@ function display(){
 
 <script>
   
-  function myFunction(ola) {
+  function updateLike(ola) {
  
-			$.post('handlers/ajax.php?action=AdicionarPessoa&ola='+ola, function(response){
+			$.post('handlers/ajax.php?action=LikeUpdate&ola='+ola, function(response){
 				
 				$('.Adicionarppldiv').html(response);
 			});
   }
 
+    function updateDislike(ola) {
+ 
+ $.post('handlers/ajax.php?action=DislikeUpdate&ola='+ola, function(response){
+   
+   $('.Adicionarppldiv').html(response);
+ });
+}
 
+  function myFunction(ola) {
+ 
+ $.post('handlers/ajax.php?action=Like&ola='+ola, function(response){
+   
+   $('.Adicionarppldiv').html(response);
+ });
+}
 
   function myFunction2(ola) {
  
