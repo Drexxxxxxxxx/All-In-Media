@@ -22,18 +22,29 @@ if( isset($_REQUEST['action']) ){
 			$rs = $query->fetchAll(PDO::FETCH_OBJ);
 			
 			$chat = '';
+			
+			
+		
 			foreach( $rs as $r ){
 				if($r->isimage==1)
 				{
-
 					$chat .=  '<div class="siglemessage"><strong>'.$r->name.' says:  </strong><img class="img" src="data:image;base64,'.$r->message.'"></div>';
 				}
-				else
+				else if($r->isimage==0)
 				{
 				$chat .=  '<div class="siglemessage"><strong>'.$r->name.' says:  </strong>'.$r->message.'</div>';
 				}
+				else if($r->isimage==2)
+				{
+					
+					//$chat .=  '<script>$( ".inner" ).append( "<strong>'.$r->name.' says:  </strong><video width="400" controls><source src="'.$r->message.'" type="video/mp4"></video>'.$r->message.'" );</script>';
+					
+				$chat .=  '<div class="siglemessage"><strong>'.$r->name.' says:  </strong><video width="400" controls><source src="'.$r->message.'" type="video/mp4"></video>'.$r->message.'</div>';
+				}
+
 			}
 			echo $chat;
+			
 		}
 		break;
 		case "AdicionarPessoa":
