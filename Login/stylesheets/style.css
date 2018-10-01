@@ -7,6 +7,7 @@
     border: none;
     border-bottom: 1px solid #4776E6;
     font-size: 20px;
+    outline: none;
 }
 
 #password{
@@ -16,6 +17,7 @@
     width: 100%;
     border-bottom: 1px solid #4776E6;
     font-size: 20px;
+    outline: none;
 }
 #email{
     background: transparent;
@@ -24,6 +26,7 @@
     width: 100%;
     border-bottom: 1px solid #4776E6;
     font-size: 20px;
+    outline: none;
 }
 
 #btn_login{
