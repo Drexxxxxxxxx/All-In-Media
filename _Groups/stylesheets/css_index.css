@@ -187,3 +187,12 @@ html{
     border-bottom-left-radius: 50px 20px;
     border-top: none;
 }
+
+.msg_div{
+    background-color: white;
+    padding: 10px;
+    transition: 0.3s;
+}.msg_div:hover{
+    background-color:#DCDCDC ;
+    
+}
