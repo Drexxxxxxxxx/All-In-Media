@@ -131,11 +131,15 @@ html{
 }
 
 .notificacao{
+
+    padding: 3px;
+    width: 100%;
+}.notificacao_icn{    
+    border-radius: 50%;
     background-color: green;
     color: white;
-    border-radius: 200px;
-    padding: 3px;
-    width: 30px;
+    text-align: center;
+line-height: 30px;
 }
 
 .div_msg{
