@@ -14,7 +14,7 @@
     background: transparent;
     border: none;
     border-bottom: 1px solid  #4776E6;
-
+    outline: none;
 
 }
 .txt_textOpcional{
@@ -22,6 +22,7 @@
     width: 100%;
     background: transparent;
     border: 1px solid  #4776E6;
+    outline: none;
 }
 
 .file-upload{
