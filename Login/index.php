@@ -17,15 +17,26 @@
 <?php
 include_once 'main.php';
 ?>
-<body onload="<?php BodyonLoadSessionRequire()?>">
+<body onload="<?php BodyonLoadSessionRequire() ?>">
 	
 <div id="result">
     <?php
-    EAdminQuery();
-    ?>
+			EAdminQuery();
+			?>
 </div>
 
 <div class="Adicionarppldiv"></div>
+
+
+          <div class="custompopup" id="AbrirVideo" runat="server" style="display:none;">
+                <button type='button' style="padding: 0% 0%; position: fixed;
+                top: 2.5%;
+                right: 1.4%; z-index: 1" id="FecharvideoBtn" onclick=DivVideo()>X</button>     
+               
+                <video width="100%" id="v1" style="height: -webkit-fill-available;" controls autoplay>
+                </video>
+               
+        </div>
 
 	<div class="centeralised">
 	
@@ -49,11 +60,9 @@ include_once 'main.php';
 	</div>
 
 
-
-
 	<script>
 
-
+		var valor = 0;
 
 		$(document).ready(function(){
 			loadChat();
@@ -65,22 +74,25 @@ include_once 'main.php';
 				var urlval = getUrlVars()["idgrupo"];
 				$.post('handlers/ajax.php?action=SendMessage&message='+message+'&idgrupo='+urlval, function(response){
 					
-					loadChat();
 					$('#message').val('');
 				});
 			}
 		});
 		function loadChat()
-		{
+		{			
+			$('.siglemessage').each(function() {
+				valor = $(this).attr('id');
+			});
+
 			var urlval = getUrlVars()["idgrupo"];
-			$.post('handlers/ajax.php?action=getChat&idgrupo='+urlval, function(response){
+			$.post('handlers/ajax.php?action=getChat&idgrupo='+urlval+'&ultimo='+valor, function(response){
 				
-				$('.chathistory').html(response);
+				$('.chathistory').append(response);
 			});
 		}
 		setInterval(function(){
 			loadChat();
-		}, 2000);
+		}, 1000);
 
 
 		function getUrlVars()
@@ -116,45 +128,55 @@ include_once 'main.php';
 		}
 
 		
-	
+		function VerVideo($video)
+		{
+			$("#v1").html('<source src="'+$video+'" class="test" type="video/mp4"></source>' );
+			$("#AbrirVideo video")[0].load();
+			$("#AbrirVideo").fadeToggle("3000");
+		}
+
+
+		function DivVideo()
+		{		  
+			$('#v1').get(0).pause();
+    	$("#AbrirVideo").fadeToggle("3000");
+		}
 	</script>
 
 
 	<?php
-		if(isset($_POST['submit'])){
-			if(getimagesize($_FILES['image']['tmp_name'])==FALSE){
-				echo"failed";
-				
-			}
-			else{
-				$name=addslashes($_FILES['image']['name']);
-				$image=base64_encode(file_get_contents(addslashes($_FILES['image']['tmp_name'])));
-				saveimage($name,$image);
-			}
-			}
-	
-			function saveimage ($name, $image)
-			{
-		
-			$con = mysqli_connect("localhost","root","", "phpteste");
-			$sql="insert INTO chat SET idQuemEnviou=17, message='$image', idGrupo=1, isimage=1" ;
-			$query=mysqli_query($con,$sql);
-		
-			if($query){
-			echo"sucess";
-			}
-			else {
-				echo "n deu";
-			}
-			mysqli_close($con);
-		
-			}
+if (isset($_POST['submit'])) {
+	if (getimagesize($_FILES['image']['tmp_name']) == false) {
+		echo "failed";
 
-		function AddPersonToGroup()
-		{
-    			echo "<p><button onclick='AddPersonBtn1()'> Adicionar pessoas ao grupo </button><p>";
-		}
-	?>
+	} else {
+		$name = addslashes($_FILES['image']['name']);
+		$image = base64_encode(file_get_contents(addslashes($_FILES['image']['tmp_name'])));
+		saveimage($name, $image);
+	}
+}
+
+function saveimage($name, $image)
+{
+
+	$con = mysqli_connect("localhost", "root", "", "phpteste");
+	$sql = "insert INTO chat SET idQuemEnviou=17, message='$image', idGrupo=1, isimage=1";
+	$query = mysqli_query($con, $sql);
+
+	if ($query) {
+		echo "sucess";
+	} else {
+		echo "n deu";
+	}
+	mysqli_close($con);
+
+}
+
+function AddPersonToGroup()
+{
+	echo "<p><button onclick='AddPersonBtn1()'> Adicionar pessoas ao grupo </button><p>";
+}
+?>
 
 </body>
 </html>

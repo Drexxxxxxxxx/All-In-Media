@@ -26,22 +26,25 @@ if( isset($_REQUEST['action']) ){
 			
 		
 			foreach( $rs as $r ){
-				if($r->isimage==1)
+				if($r->id > $_REQUEST['ultimo'])
 				{
-					$chat .=  '<div class="siglemessage"><strong>'.$r->name.' says:  </strong><img class="img" src="data:image;base64,'.$r->message.'"></div>';
+					if($r->isimage==1)
+					{
+						$chat .=  '<div class="siglemessage" id="'.$r->id.'"><strong>'.$r->name.' says:  </strong><img class="img" src="data:image;base64,'.$r->message.'"></div>';
+					}
+					else if($r->isimage==0)
+					{
+					$chat .=  '<div class="siglemessage" id="'.$r->id.'"><strong>'.$r->name.' says:  </strong>'.$r->message.'</div>';
+					}
+					else if($r->isimage==2)
+					{
+						
+						//$chat .=  '<script>$( ".inner" ).append( "<strong>'.$r->name.' says:  </strong><video width="400" controls><source src="'.$r->message.'" type="video/mp4"></video>'.$r->message.'" );</script>';
+					//	$chat .=  "<div class='siglemessage'><strong>".$r->name." says:  </strong><button onclick=AddPersonBtn1()> Adicionar pessoas ao grupo </button></div>";
+					$LOL="'".$r->message."'";
+					$chat .=  '<div class="siglemessage" id="'.$r->id.'"><strong>'.$r->name.' says:  </strong> <input type="image" onclick="VerVideo('.$LOL.')" src="https://beingclarity.com/wp-content/uploads/2018/01/play-button-png-play-video-button-png-321.png" class="imagemvideobtn"> <video width="100%"><source src="'.$r->message.'" type="video/mp4"></video>'.$r->message.'</div>';
+					}
 				}
-				else if($r->isimage==0)
-				{
-				$chat .=  '<div class="siglemessage"><strong>'.$r->name.' says:  </strong>'.$r->message.'</div>';
-				}
-				else if($r->isimage==2)
-				{
-					
-					//$chat .=  '<script>$( ".inner" ).append( "<strong>'.$r->name.' says:  </strong><video width="400" controls><source src="'.$r->message.'" type="video/mp4"></video>'.$r->message.'" );</script>';
-					
-				$chat .=  '<div class="siglemessage"><strong>'.$r->name.' says:  </strong><video width="400" controls><source src="'.$r->message.'" type="video/mp4"></video>'.$r->message.'</div>';
-				}
-
 			}
 			echo $chat;
 			
