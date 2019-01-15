@@ -108,7 +108,7 @@ include_once 'main.php';
                             <input type="password" name="password" id="password"  required="required" placeholder="Insert your password"><br><br>
                             <input type="submit" id="btn_login" value="Login" name="submit"><br><br>
                             <a href=""> Forgot Password </a><br><br>
-                            New to All In Media? <a href=""> Sign Up </a><br><br>
+                            New to All In Media? <a href="#" onclick="window.location = 'Registar.php';"> Sign Up </a><br><br>
                             By signing up, you agree to our <a href="">Terms</a> and that you have read our <a href="">Privacy Policy</a>  and <a href="">Content Policy</a>.<br><br>
                         <hr>
                         </fieldset>

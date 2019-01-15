@@ -6,7 +6,7 @@ function SessionLogin($Id)
         // Store
         $_SESSION['id'] = $Id;
         // Retrieve
-    echo '<script> location.replace("Home.php"); </script>';
+    echo '<script> location.replace("../Home/home.php"); </script>';
 }
 
 function BodyonLoad()

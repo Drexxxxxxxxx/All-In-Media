@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $target_dir = "";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
@@ -35,7 +37,7 @@ function savevideo ($nomedoficheiro)
 {
    $texto = $_POST['titulo'];
 $con = mysqli_connect("localhost","root","", "phpteste");
-$sql="insert into conteudo (Nome, Id_Publicador, likes, dislikes, imagem, video) values ('$texto','1','0','0','','$nomedoficheiro')" ;
+$sql="insert into conteudo (Nome, Id_Publicador, likes, dislikes, imagem, video) values ('$texto','".$_SESSION['id']."','0','0','','$nomedoficheiro')" ;
 $query=mysqli_query($con,$sql);
 if($query){
   echo"sucess";

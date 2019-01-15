@@ -42,6 +42,46 @@ if( isset($_REQUEST['action']) ){
 		}
 		mysqli_close($con);
 		break;
+		case "AceitarPdd":
+			$query = $db->prepare("update pessoasdogrupo SET IsAdmin=0 WHERE id=?");
+			$query->execute([$_REQUEST['id']]);
+		break;
+		case "RecusarPdd":
+			$query = $db->prepare("DELETE FROM pessoasdogrupo WHERE id=?");
+			$query->execute([$_REQUEST['id']]);
+		break;
+		case "AddFriend":
+			$con = mysqli_connect("localhost","root","", "phpteste");
+
+			$query = $db->prepare("select id FROM users WHERE name='" .$_REQUEST['nome']. "'");
+			$query->execute();
+			$rs = $query->fetchAll(PDO::FETCH_OBJ);
+			
+			$idpessoa='';
+			foreach( $rs as $r ){
+				$idpessoa = $r->id;
+			}
+			mysqli_close($con);
+
+			echo $idpessoa;
+
+			$con = mysqli_connect("localhost","root","", "phpteste");
+			$query = $db->prepare("INSERT INTO amigos (idPedido, idAceitar, Aceite) VALUES (".$_SESSION['id'].", ?, 0);");
+			$query->execute([$idpessoa]);
+			mysqli_close($con);
+		break;
+		case "AceitarAmizade":
+			$con = mysqli_connect("localhost","root","", "phpteste");
+			$query = $db->prepare("UPDATE amigos SET Aceite = 1 WHERE id = ".$_REQUEST['id']."");
+			$query->execute();
+			mysqli_close($con);
+		break;
+		case "RecusarAmizade":
+			$con = mysqli_connect("localhost","root","", "phpteste");
+			$query = $db->prepare("DELETE FROM amigos WHERE id = ".$_REQUEST['id']."");
+			$query->execute();
+			mysqli_close($con);
+		break;
 	}
   }
 ?>

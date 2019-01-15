@@ -30,7 +30,7 @@ if( isset($_REQUEST['action']) ){
 				{
 					if($r->isimage==1)
 					{
-						$chat .=  '<div class="siglemessage" id="'.$r->id.'"><strong>'.$r->name.' says:  </strong><img class="img" src="data:image;base64,'.$r->message.'"></div>';
+						$chat .=  '<div class="siglemessage" id="'.$r->id.'"><strong>'.$r->name.' says:  </strong><img class="img" src="data:image;base64,'.$r->message.'" style="max-height: 500px; max-width: 100%;"></div>';
 					}
 					else if($r->isimage==0)
 					{
