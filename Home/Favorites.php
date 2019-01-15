@@ -1,9 +1,13 @@
 <?php
 include_once '_header.php';
 ?>
+	<div>
+			<a href="#" onclick="window.location = '../AdicionarConteudo/video.php';"><img src="images/add_button.png" id="fixedbutton"></a>
+		</div>
 		<div class="Adicionarppldiv"> </div>
 		<?php 
-	mydisplay();
+	echo "<script>alert('test');</script>";
+	FavoritesToDysplay();
 	?>
 	</body>
 </html>
@@ -15,9 +19,9 @@ function comentar(id)
 		location.replace("../Home/Home.php");
 	});
 }
-function PorNosFavoritos(id)
+function RemoverdosFavoritos(id)
 {
-	$.post('../Home/handlers/ajax.php?action=AddToFavorites&id='+id, function(response){			
+	$.post('../Home/handlers/ajax.php?action=RemoveFromFavorites&id='+id, function(response){			
 		location.replace("../Home/Home.php");
 	});
 }

@@ -19,4 +19,10 @@ function comentar(id)
 		location.replace("../Home/Home.php");
 	});
 }
+function PorNosFavoritos(id)
+{
+	$.post('../Home/handlers/ajax.php?action=AddToFavorites&id='+id, function(response){			
+		location.replace("../Home/Home.php");
+	});
+}
 </script>

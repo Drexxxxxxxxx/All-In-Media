@@ -88,6 +88,18 @@ if( isset($_REQUEST['action']) ){
 			$query->execute();
 			mysqli_close($con);
 		break;
+		case "AddToFavorites":
+			$con = mysqli_connect("localhost","root","", "phpteste");
+			$query = $db->prepare("INSERT INTO favoritostbl (idVideo, idPessoa) VALUES (".$_REQUEST['id'].", ".$_SESSION['id'].");");
+			$query->execute();
+			mysqli_close($con);
+		break;
+		case "RemoveFromFavorites":
+			$con = mysqli_connect("localhost","root","", "phpteste");
+			$query = $db->prepare("DELETE FROM favoritostbl WHERE idVideo = ".$_REQUEST['id']."");
+			$query->execute();
+			mysqli_close($con);
+		break;
 	}
   }
 ?>
