@@ -19,6 +19,7 @@
 
 <body>
 <header>
+    <!--Serve para adicionar imagens-->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="#">
@@ -87,6 +88,10 @@
         </header>
 
     <div class="container">
+            <form action="video.php" method="post" enctype="multipart/form-data">
+                <br>
+                <button type="submit" style="  border: none;  color: white;  padding: 15px 32px;  text-align: center;  text-decoration: none;  display: inline-block;  font-size: 16px;  margin: 4px 2px;  cursor: pointer;background-color: #4776E6;">Add Video</button>
+            </form>
             <form method="post" enctype="multipart/form-data">
             <div>
                 <hr>
@@ -118,7 +123,7 @@
                             </label>
 
 
-                            <input class="file-upload" id="file-input" type="file" name="image">
+                            <input class="file-upload" id="file-input" type="file" name="image" accept="image/png, image/jpeg">
                             <input type="submit" id="submit_post" name="submit" value="Post">
                         </div>
                        

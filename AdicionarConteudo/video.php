@@ -2,6 +2,10 @@
 include_once '../Home/_header.php';
 ?>
         <div class="container">
+        <form action="bd_conect.php" method="post" enctype="multipart/form-data">
+            <br>
+            <button type="submit" style="  border: none;  color: white;  padding: 15px 32px;  text-align: center;  text-decoration: none;  display: inline-block;  font-size: 16px;  margin: 4px 2px;  cursor: pointer;background-color: #4776E6;">Add Image</button>
+        </form>
         <form action="upload.php" method="post" enctype="multipart/form-data">
             <div>
                 <hr>
