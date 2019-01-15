@@ -82,6 +82,12 @@ if( isset($_REQUEST['action']) ){
 			$query->execute();
 			mysqli_close($con);
 		break;
+		case "Comentar":
+			$con = mysqli_connect("localhost","root","", "phpteste");
+			$query = $db->prepare("INSERT INTO comentarios (idVideo, idPessoa, texto) VALUES (".$_REQUEST['id'].", ".$_SESSION['id'].", '".$_REQUEST['text']."');");
+			$query->execute();
+			mysqli_close($con);
+		break;
 	}
   }
 ?>

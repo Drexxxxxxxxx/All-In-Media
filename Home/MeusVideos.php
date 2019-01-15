@@ -7,3 +7,12 @@ include_once '_header.php';
 	?>
 	</body>
 </html>
+<script>
+function comentar(id)
+{
+	var text = $("#textarea_" + id).val();
+	$.post('../Home/handlers/ajax.php?action=Comentar&id='+id+'&text='+text, function(response){			
+		location.replace("../Home/Home.php");
+	});
+}
+</script>
