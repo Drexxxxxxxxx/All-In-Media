@@ -52,9 +52,8 @@ function display(){
           Dislike
             <input type="radio" value="radio" name="radio'.$id.'" onchange="updateDislike('.$id.')">
             <span class="checkmark"></span>
-          </label><textarea rows="3" cols="50">
-         
-          </textarea><br><br><br><br>';
+          </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
+          </textarea>';
             }
             else
             {
@@ -70,9 +69,9 @@ function display(){
             Dislike
               <input type="radio" value="radio" name="radio'.$id.'" onchange="updateDislike('.$id.')">
               <span class="checkmark"></span>
-            </label><textarea rows="3" cols="50">
+            </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
            
-            </textarea><br><br><br><br>';
+            </textarea>';
             }
           }
   
@@ -87,9 +86,9 @@ function display(){
           Dislike
             <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateDislike('.$id.')">
             <span class="checkmark"></span>
-          </label><textarea rows="3" cols="50">
+          </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
          
-          </textarea><br><br><br><br>';
+          </textarea>';
             }
             else
             {
@@ -105,9 +104,9 @@ function display(){
             Dislike
               <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateDislike('.$id.')">
               <span class="checkmark"></span>
-            </label><textarea rows="3" cols="50">
+            </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
            
-            </textarea><br><br><br><br>';
+            </textarea>';
             }
           }       
   
@@ -122,9 +121,9 @@ function display(){
           Dislike
             <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction2('.$id.')">
             <span class="checkmark"></span>
-          </label><textarea rows="3" cols="50">
+          </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
          
-          </textarea><br><br><br><br>';
+          </textarea>';
             }
             else{
               $video=$result['video'];
@@ -139,17 +138,42 @@ function display(){
            Dislike
              <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction2('.$id.')">
              <span class="checkmark"></span>
-           </label><textarea rows="3" cols="50">
+           </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
           
-           </textarea><br><br><br><br>';
+           </textarea>';
             }
-          }  
+          }
+          echo '<button onclick="comentar('.$id.')">Comentar</button>';
+         comentarios($id);
+          
+          echo '<br><br><br><br></form>';
     }
   
+}
+
+function comentarios($id)
+{
+  $con = mysqli_connect("localhost","root","", "phpteste");
+  $sql = "SELECT * FROM comentarios WHERE idVideo = ".$id." order by id DESC";
+  $query=mysqli_query($con,$sql);
+  $num=mysqli_num_rows($query);
+  if($num > 3)
+  {
+    echo "<div id='comentario_".$id."' style='display:none'>";
+  }
+  for($i=0;$i<$num;$i++)
+  {
+      $result=mysqli_fetch_array($query);
+      $descricao = $result['texto'];
+      echo "<p>".$descricao."</p>";
+  }
+  if($num > 3)
+  {
+    echo "</div>
+    <p><button type='button' class='btn btn-link' onclick='$(\"#comentario_".$id."\").toggle();'>Ver/Fechar os ".$num." comentários</button></p>";
+  }
   
-    echo '</form>';
-  
-  
+  mysqli_close($con);
 }
 
 function Addtodivgrupo($Nome, $link)
@@ -255,7 +279,7 @@ function Amigos()
 //Mydisplay Page
 function mydisplay(){
   $con = mysqli_connect("localhost","root","", "phpteste");
-  $sql = "select * from conteudo WHERE id = ".$_SESSION['id']." order by id DESC";
+  $sql = "select * from conteudo WHERE Id_Publicador = ".$_SESSION['id']." order by id DESC";
   
    $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);
@@ -295,9 +319,9 @@ function mydisplay(){
         Dislike
           <input type="radio" value="radio" name="radio'.$id.'" onchange="updateDislike('.$id.')">
           <span class="checkmark"></span>
-        </label><textarea rows="3" cols="50">
+        </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
        
-        </textarea><br><br><br><br>';
+        </textarea>';
           }
           else
           {
@@ -313,9 +337,9 @@ function mydisplay(){
           Dislike
             <input type="radio" value="radio" name="radio'.$id.'" onchange="updateDislike('.$id.')">
             <span class="checkmark"></span>
-          </label><textarea rows="3" cols="50">
+          </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
          
-          </textarea><br><br><br><br>';
+          </textarea>';
           }
         }
 
@@ -330,9 +354,9 @@ function mydisplay(){
         Dislike
           <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateDislike('.$id.')">
           <span class="checkmark"></span>
-        </label><textarea rows="3" cols="50">
+        </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
        
-        </textarea><br><br><br><br>';
+        </textarea>';
           }
           else
           {
@@ -348,9 +372,9 @@ function mydisplay(){
           Dislike
             <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateDislike('.$id.')">
             <span class="checkmark"></span>
-          </label><textarea rows="3" cols="50">
+          </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
          
-          </textarea><br><br><br><br>';
+          </textarea>';
           }
         }       
 
@@ -365,9 +389,9 @@ function mydisplay(){
         Dislike
           <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction2('.$id.')">
           <span class="checkmark"></span>
-        </label><textarea rows="3" cols="50">
+        </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
        
-        </textarea><br><br><br><br>';
+        </textarea>';
           }
           else{
             $video=$result['video'];
@@ -382,11 +406,15 @@ function mydisplay(){
          Dislike
            <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction2('.$id.')">
            <span class="checkmark"></span>
-         </label><textarea rows="3" cols="50">
+         </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
         
-         </textarea><br><br><br><br>';
+         </textarea>';
           }
         }  
+        echo '<button onclick="comentar('.$id.')">Comentar</button>';
+        comentarios($id);
+          
+        echo '<br><br><br><br>';
   }
 
 
