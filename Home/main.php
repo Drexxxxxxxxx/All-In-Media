@@ -53,8 +53,7 @@ function display(){
             <input type="radio" value="radio" name="radio'.$id.'" onchange="updateDislike('.$id.')">
             <span class="checkmark"></span>
           </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
-          </textarea>
-          <br><br><br><br>';
+          </textarea>';
             }
             else
             {
@@ -72,7 +71,7 @@ function display(){
               <span class="checkmark"></span>
             </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
            
-            </textarea><br><br><br><br>';
+            </textarea>';
             }
           }
   
@@ -89,7 +88,7 @@ function display(){
             <span class="checkmark"></span>
           </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
          
-          </textarea><br><br><br><br>';
+          </textarea>';
             }
             else
             {
@@ -107,7 +106,7 @@ function display(){
               <span class="checkmark"></span>
             </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
            
-            </textarea><br><br><br><br>';
+            </textarea>';
             }
           }       
   
@@ -124,7 +123,7 @@ function display(){
             <span class="checkmark"></span>
           </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
          
-          </textarea><br><br><br><br>';
+          </textarea>';
             }
             else{
               $video=$result['video'];
@@ -322,7 +321,7 @@ function mydisplay(){
           <span class="checkmark"></span>
         </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
        
-        </textarea><br><br><br><br>';
+        </textarea>';
           }
           else
           {
@@ -340,7 +339,7 @@ function mydisplay(){
             <span class="checkmark"></span>
           </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
          
-          </textarea><br><br><br><br>';
+          </textarea>';
           }
         }
 
@@ -357,7 +356,7 @@ function mydisplay(){
           <span class="checkmark"></span>
         </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
        
-        </textarea><br><br><br><br>';
+        </textarea>';
           }
           else
           {
@@ -375,7 +374,7 @@ function mydisplay(){
             <span class="checkmark"></span>
           </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
          
-          </textarea><br><br><br><br>';
+          </textarea>';
           }
         }       
 
@@ -392,7 +391,7 @@ function mydisplay(){
           <span class="checkmark"></span>
         </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
        
-        </textarea><br><br><br><br>';
+        </textarea>';
           }
           else{
             $video=$result['video'];
