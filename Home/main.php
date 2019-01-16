@@ -227,12 +227,49 @@ function comentarios($id)
 
 function Addtodivgrupo($Nome, $link)
 {
-    echo "<p><a href='".$link."'>".$Nome."</a><p>";
+  echo "<p><a href='".$link."'>".$Nome."</a><p>";
+}
+
+function Addtodivgrupoiframe($Nome, $link)
+{ 
+  echo'<iframe name="iframe1" width="100%" src="target.html"></iframe>
+
+<a id="togleshowchat" href="'.$link.'" target="iframe1">"'.$Nome.'"</a>';
+
+echo'
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$("iframe").toggle();
+$(document).ready(function(){
+  $("#togleshowchat").click(function(){
+    $("iframe").toggle();
+  });
+});
+</script>';
+
+
+  //echo" <iframe height='300px' width='25%' src=".$link." name='iframe_a'></iframe>";
 }
 
 function Invites($Nome, $link)
 {
     echo "<p class='d-inline'>$Nome &ThickSpace;</p><button onclick=AceitarPedido(".$link.")><i class='far fa-thumbs-up'></i></button><button onclick=RecusarPedido(".$link.")><i class='far fa-thumbs-down'></i></button>";
+}
+
+function GruposChatiframe()
+{
+  $con = mysqli_connect("localhost","root","", "phpteste");
+    $sql = "select * FROM pessoasdogrupo, grupo WHERE idpessoa = '".$_SESSION['id']."' and pessoasdogrupo.idgrupo = grupo.id and pessoasdogrupo.IsAdmin != 3 ";
+    $query=mysqli_query($con,$sql);
+    $num=mysqli_num_rows($query);
+    for($i=0;$i<$num;$i++)
+    {
+        $result=mysqli_fetch_array($query);
+        $img= $result['nome'];
+        $idlogin = "../Login/index.php?idgrupo=".$result['idgrupo'];
+        Addtodivgrupoiframe($img, $idlogin);
+    }
+    mysqli_close($con);
 }
 
 function GruposChat()

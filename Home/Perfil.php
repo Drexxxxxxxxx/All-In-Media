@@ -6,6 +6,5 @@ include_once '_header.php';
 PerfilData();
 Amigos();
 mydisplay();
-
 ?>
 </div>
