@@ -303,7 +303,7 @@ function PerfilData()
       $result=mysqli_fetch_array($query);
       $Nome = $result['name'];
       $email = $result['email'];
-      echo "<p>".$Nome."</p> <p>" .$email. "</p>";
+      echo "<p>  Nome: ".$Nome."</p> <p>  Email: " .$email. "</p>";
   }
   mysqli_close($con);
 }
@@ -314,6 +314,7 @@ function Amigos()
   $sql = "SELECT amigos.*, users.id AS iduser, users.name, users.email FROM amigos, users WHERE ((idPedido = '".$_REQUEST['id']."' AND idAceitar = users.id) OR (idAceitar = '".$_REQUEST['id']."' AND idPedido = users.id)) AND Aceite = 1";
   $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);
+  echo "Amigos: (". $num . ")";
   for($i=0;$i<$num;$i++)
   {
       $result=mysqli_fetch_array($query);
