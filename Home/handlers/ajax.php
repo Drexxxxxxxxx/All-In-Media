@@ -100,6 +100,18 @@ if( isset($_REQUEST['action']) ){
 			$query->execute();
 			mysqli_close($con);
 		break;
+		case "SubToChannel":
+			$con = mysqli_connect("localhost","root","", "phpteste");
+			$query = $db->prepare("INSERT INTO subscritostbl (IdPessoa, IdCanal) VALUES (".$_SESSION['id'].", ".$_REQUEST['id'].");");
+			$query->execute();
+			mysqli_close($con);
+		break;
+		case "UnSubToChannel":
+			$con = mysqli_connect("localhost","root","", "phpteste");
+			$query = $db->prepare("DELETE FROM subscritostbl WHERE IdCanal = ".$_REQUEST['id']." AND IdPessoa = ".$_SESSION['id'].";");
+			$query->execute();
+			mysqli_close($con);
+		break;
 	}
   }
 ?>

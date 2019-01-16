@@ -25,4 +25,16 @@ function RemoverdosFavoritos(id)
 		location.replace("../Home/Home.php");
 	});
 }
+function SubToChannel(id)
+{
+	$.post('../Home/handlers/ajax.php?action=SubToChannel&id='+id, function(response){			
+		location.replace("../Home/Home.php");
+	});
+}
+function UnSubToChannel(id)
+{
+	$.post('../Home/handlers/ajax.php?action=UnSubToChannel&id='+id, function(response){			
+		location.replace("../Home/Home.php");
+	});
+}
 </script>

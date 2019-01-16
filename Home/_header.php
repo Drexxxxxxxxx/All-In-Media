@@ -87,7 +87,7 @@ include_once 'main.php';
 				<div id="sidenav_menu">
 					<nav class="nav justify-content-center sidenav">
 						<a class="nav-link" href="#">Trending</a>
-						<a class="nav-link" href="#">Canais Subs</a>
+						<a class="nav-link" href="../Home/CanaisSubs.php">Canais Subs</a>
 						<a class="nav-link" href="../Home/Favorites.php">Favoritos</a>
 						<a class="nav-link" href="../Home/MeusVideos.php">Meus Videos</a>
 					</nav>

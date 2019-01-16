@@ -7,7 +7,7 @@ include_once '_header.php';
 		<div class="Adicionarppldiv"> </div>
 		<?php 
 	echo "<script>alert('test');</script>";
-	display();
+	SubChannelToDysplay();
 	?>
 	</body>
 </html>
@@ -22,12 +22,6 @@ function comentar(id)
 function PorNosFavoritos(id)
 {
 	$.post('../Home/handlers/ajax.php?action=AddToFavorites&id='+id, function(response){			
-		location.replace("../Home/Home.php");
-	});
-}
-function SubToChannel(id)
-{
-	$.post('../Home/handlers/ajax.php?action=SubToChannel&id='+id, function(response){			
 		location.replace("../Home/Home.php");
 	});
 }

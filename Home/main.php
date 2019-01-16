@@ -145,11 +145,41 @@ function display(){
           }
           echo '<button onclick="comentar('.$id.')">Comentar</button>';
           echo '<button onclick="PorNosFavoritos('.$id.')">Adicionar aos Favoritos</button>';
+          isSubAlready($result['Id_Publicador']);
          comentarios($id);
           
           echo '<br><br><br><br></form>';
     }
   
+}
+function isSubAlready($idChannel)
+{
+  $con = mysqli_connect("localhost","root","", "phpteste");
+  $sql = "SELECT * FROM subscritostbl WHERE IdPessoa = ".$_SESSION['id']." AND IdCanal = " .$idChannel. "";
+  $query=mysqli_query($con,$sql);
+  $num=mysqli_num_rows($query);
+  if($num == 0)
+  {
+    AddSubscriptionBtn($idChannel);
+  }
+  else
+  {
+    RemoveSubscriptionBtn($idChannel);
+  }
+  mysqli_close($con);
+}
+function AddSubscriptionBtn($idChannel)
+{
+  $con = mysqli_connect("localhost","root","", "phpteste");
+  $sql = "SELECT name FROM users WHERE id=".$idChannel.";";
+  $query=mysqli_query($con,$sql);
+  $num=mysqli_num_rows($query);
+  for($i=0;$i<$num;$i++)
+  {
+      $result=mysqli_fetch_array($query);
+      echo '<Button onclick="SubToChannel('.$idChannel.')"> Subscribe '.$result['name'].' </Button>';
+  }
+  mysqli_close($con);
 }
 
 function comentarios($id)
@@ -415,6 +445,7 @@ function mydisplay(){
         echo '<button onclick="comentar('.$id.')">Comentar</button>';
         echo '<button onclick="PorNosFavoritos('.$id.')">Adicionar aos Favoritos</button>';
         comentarios($id);
+
           
         echo '<br><br><br><br>';
   }
@@ -424,6 +455,8 @@ function mydisplay(){
 
 
 }
+
+//Favorites Page 
 function FavoritesToDysplay(){
   $con = mysqli_connect("localhost","root","", "phpteste");
   $sql = "SELECT * FROM favoritostbl WHERE idPessoa = ".$_SESSION['id']."";
@@ -573,6 +606,7 @@ function DisplayFavorites($idVideo){
         }  
         echo '<button onclick="comentar('.$id.')">Comentar</button>';
         echo '<button onclick="RemoverdosFavoritos('.$id.')">Remover dos Favoritos</button>';
+        isSubAlready($result['Id_Publicador']);
         comentarios($id);
           
         echo '<br><br><br><br>';
@@ -583,4 +617,186 @@ function DisplayFavorites($idVideo){
 
 }
 
+//Subscription Page
+function SubChannelToDysplay(){
+  $con = mysqli_connect("localhost","root","", "phpteste");
+  $sql = "SELECT * FROM subscritostbl WHERE IdPessoa = ".$_SESSION['id']."";
+  $query=mysqli_query($con,$sql);
+  $num=mysqli_num_rows($query);
+  $tdsosCanaisSeguidos = 'select * from conteudo WHERE ';
+  for($i=0;$i<$num;$i++)
+  {
+      $result=mysqli_fetch_array($query);
+      if($i == 0)
+      {
+        $tdsosCanaisSeguidos .= 'Id_Publicador = '.$result['IdCanal'].'';
+      }
+      else
+      {
+        $tdsosCanaisSeguidos .= ' OR Id_Publicador = '.$result['IdCanal'].'';
+      }
+  } 
+  $tdsosCanaisSeguidos .= ' order by id DESC';
 
+  DisplaySubChannel($tdsosCanaisSeguidos);
+
+  mysqli_close($con);
+}
+function DisplaySubChannel($allchanels)
+{
+  $con = mysqli_connect("localhost","root","", "phpteste");
+  $sql = $allchanels;
+  
+   $query=mysqli_query($con,$sql);
+  $num=mysqli_num_rows($query);
+  $count=0;
+  echo '<form action="../Home/home.php" method="post">';
+  for($i=0;$i<$num;$i++){
+      $result=mysqli_fetch_array($query);
+      $img=$result['imagem'];
+      $id=$result['id'];
+          $dbhost = "localhost";
+          $dbname = "phpteste";
+          $dbuser = "root";
+          $dbpass = '';
+          try{
+            $db = new PDO("mysql:dbhost=$dbhost;dbname=$dbname", "$dbuser", "$dbpass");
+          }catch(PDOException $e){
+            echo $e->getMessage();
+          }
+          $contador = 0;
+        $query2 = $db->prepare("select * FROM likesconteudo WHERE iduser = '".$_SESSION['id']."' AND idConteudo = '" .$id."'");
+        $query2->execute();
+        $rs = $query2->fetchAll(PDO::FETCH_OBJ);
+        
+        $chat = '';
+        foreach( $rs as $r ){
+          $contador = $r->LikeDislike;
+        }
+
+        if($contador == 1)
+        {
+          if(!$img=="")
+          { 
+          echo '<img class="img" src="data:image;base64,'.$img.'"><br><label class="container">Like
+          <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateLike('.$id.')">
+          <span class="checkmark"></span>
+        
+        Dislike
+          <input type="radio" value="radio" name="radio'.$id.'" onchange="updateDislike('.$id.')">
+          <span class="checkmark"></span>
+        </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
+        </textarea>';
+          }
+          else
+          {
+            $video=$result['video'];
+            echo '<video width="400" height="300" controls>';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/mp4">';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/ogg"><br><br><br>';
+           echo '</video>';
+            echo '<label class="container">Like
+            <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateLike('.$id.')">
+            <span class="checkmark"></span>
+          
+          Dislike
+            <input type="radio" value="radio" name="radio'.$id.'" onchange="updateDislike('.$id.')">
+            <span class="checkmark"></span>
+          </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
+         
+          </textarea>';
+          }
+        }
+
+        if($contador == 2)
+        {
+          if(!$img=="")
+          { 
+          echo '<img class="img" src="data:image;base64,'.$img.'"><br><label class="container">Like
+          <input type="radio" value="radio" name="radio'.$id.'" onchange="updateLike('.$id.')">
+          <span class="checkmark"></span>
+        
+        Dislike
+          <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateDislike('.$id.')">
+          <span class="checkmark"></span>
+        </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
+       
+        </textarea>';
+          }
+          else
+          {
+            $video=$result['video'];
+            echo '<video width="400" height="300" controls>';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/mp4">';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/ogg"><br><br><br>';
+           echo '</video>';
+            echo '<label class="container">Like
+            <input type="radio" value="radio" name="radio'.$id.'" onchange="updateLike('.$id.')">
+            <span class="checkmark"></span>
+          
+          Dislike
+            <input type="radio" value="radio" name="radio'.$id.'" checked onchange="updateDislike('.$id.')">
+            <span class="checkmark"></span>
+          </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
+         
+          </textarea>';
+          }
+        }       
+
+        if($contador == 0)
+        {
+          if(!$img=="")
+          { 
+          echo '<img class="img" src="data:image;base64,'.$img.'"><br><label class="container">Like
+          <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction('.$id.')">
+          <span class="checkmark"></span>
+        
+        Dislike
+          <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction2('.$id.')">
+          <span class="checkmark"></span>
+        </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
+       
+        </textarea>';
+          }
+          else{
+            $video=$result['video'];
+            echo '<video width="400" height="300" controls>';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/mp4">';
+            echo '<source class="img" src="../AdicionarConteudo/'.$video.'" type="video/ogg"><br><br><br>';
+           echo '</video>';
+           echo '<label class="container">Like
+           <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction('.$id.')">
+           <span class="checkmark"></span>
+         
+         Dislike
+           <input type="radio" value="radio" name="radio'.$id.'" onchange="myFunction2('.$id.')">
+           <span class="checkmark"></span>
+         </label><textarea id="textarea_'.$id.'" rows="3" cols="50">
+        
+         </textarea>';
+          }
+        }
+        echo '<button onclick="comentar('.$id.')">Comentar</button>';
+        echo '<button onclick="PorNosFavoritos('.$id.')">Adicionar aos Favoritos</button>';
+        RemoveSubscriptionBtn($result['Id_Publicador']);
+       comentarios($id);
+        
+        echo '<br><br><br><br></form>';
+   
+}
+
+}
+
+function RemoveSubscriptionBtn($idChannel)
+{
+  $con = mysqli_connect("localhost","root","", "phpteste");
+  $sql = "SELECT name FROM users WHERE id=".$idChannel.";";
+  $query=mysqli_query($con,$sql);
+  $num=mysqli_num_rows($query);
+  for($i=0;$i<$num;$i++)
+  {
+      $result=mysqli_fetch_array($query);
+      echo '<Button onclick="UnSubToChannel('.$idChannel.')"> Unsub '.$result['name'].' </Button>';
+  }
+  mysqli_close($con);
+}
