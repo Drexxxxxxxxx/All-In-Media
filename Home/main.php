@@ -144,14 +144,32 @@ function display(){
             }
           }
           echo '<button onclick="comentar('.$id.')">Comentar</button>';
-          echo '<button onclick="PorNosFavoritos('.$id.')">Adicionar aos Favoritos</button>';
           isSubAlready($result['Id_Publicador']);
-         comentarios($id);
+          isFavAlready($id);
+          comentarios($id);
           
           echo '<br><br><br><br></form>';
     }
   
 }
+function isFavAlready($idChannel)
+{
+  $con = mysqli_connect("localhost","root","", "phpteste");
+  $sql = "SELECT * FROM favoritostbl WHERE idPessoa = ".$_SESSION['id']." AND idVideo = " .$idChannel. "";
+  $query=mysqli_query($con,$sql);
+  $num=mysqli_num_rows($query);
+  if($num == 0)
+  {
+    echo '<button onclick="PorNosFavoritos('.$idChannel.')">Adicionar aos Favoritos</button>';
+  }
+  else
+  {
+    echo '<button onclick="RemoverdosFavoritos('.$idChannel.')">Remover dos Favoritos</button>';
+  }
+  mysqli_close($con);
+}
+
+
 function isSubAlready($idChannel)
 {
   $con = mysqli_connect("localhost","root","", "phpteste");
@@ -443,7 +461,7 @@ function mydisplay(){
           }
         }  
         echo '<button onclick="comentar('.$id.')">Comentar</button>';
-        echo '<button onclick="PorNosFavoritos('.$id.')">Adicionar aos Favoritos</button>';
+        isFavAlready($id);
         comentarios($id);
 
           
@@ -777,7 +795,7 @@ function DisplaySubChannel($allchanels)
           }
         }
         echo '<button onclick="comentar('.$id.')">Comentar</button>';
-        echo '<button onclick="PorNosFavoritos('.$id.')">Adicionar aos Favoritos</button>';
+        isFavAlready($id);
         RemoveSubscriptionBtn($result['Id_Publicador']);
        comentarios($id);
         
@@ -800,3 +818,42 @@ function RemoveSubscriptionBtn($idChannel)
   }
   mysqli_close($con);
 }
+
+?>
+
+
+
+
+<script>
+function comentar(id)
+{
+	var text = $("#textarea_" + id).val();
+	$.post('../Home/handlers/ajax.php?action=Comentar&id='+id+'&text='+text, function(response){			
+		location.replace("../Home/Home.php");
+	});
+}
+function PorNosFavoritos(id)
+{
+	$.post('../Home/handlers/ajax.php?action=AddToFavorites&id='+id, function(response){			
+		location.replace("../Home/Home.php");
+	});
+}
+function SubToChannel(id)
+{
+	$.post('../Home/handlers/ajax.php?action=SubToChannel&id='+id, function(response){			
+		location.replace("../Home/Home.php");
+	});
+}
+function UnSubToChannel(id)
+{
+	$.post('../Home/handlers/ajax.php?action=UnSubToChannel&id='+id, function(response){			
+		location.replace("../Home/Home.php");
+	});
+}
+function RemoverdosFavoritos(id)
+{
+	$.post('../Home/handlers/ajax.php?action=RemoveFromFavorites&id='+id, function(response){			
+		location.replace("../Home/Home.php");
+	});
+}
+</script>

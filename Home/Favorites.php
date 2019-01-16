@@ -11,30 +11,3 @@ include_once '_header.php';
 	?>
 	</body>
 </html>
-<script>
-function comentar(id)
-{
-	var text = $("#textarea_" + id).val();
-	$.post('../Home/handlers/ajax.php?action=Comentar&id='+id+'&text='+text, function(response){			
-		location.replace("../Home/Home.php");
-	});
-}
-function RemoverdosFavoritos(id)
-{
-	$.post('../Home/handlers/ajax.php?action=RemoveFromFavorites&id='+id, function(response){			
-		location.replace("../Home/Home.php");
-	});
-}
-function SubToChannel(id)
-{
-	$.post('../Home/handlers/ajax.php?action=SubToChannel&id='+id, function(response){			
-		location.replace("../Home/Home.php");
-	});
-}
-function UnSubToChannel(id)
-{
-	$.post('../Home/handlers/ajax.php?action=UnSubToChannel&id='+id, function(response){			
-		location.replace("../Home/Home.php");
-	});
-}
-</script>
