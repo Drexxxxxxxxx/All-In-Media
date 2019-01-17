@@ -70,7 +70,7 @@ function InvitesGrupo()
 function EAdminQuery()
 {
     $con = mysqli_connect("localhost","root","", "phpteste");
-    $sql = "select * FROM pessoasdogrupo, grupo WHERE idpessoa = '".$_SESSION['id']."' and pessoasdogrupo.idgrupo = grupo.id";
+    $sql = "select * FROM pessoasdogrupo, grupo WHERE idpessoa = '".$_SESSION['id']."' and pessoasdogrupo.idgrupo = grupo.id AND idgrupo = '".$_REQUEST['idgrupo']."'";
     $query=mysqli_query($con,$sql);
     $num=mysqli_num_rows($query);
     for($i=0;$i<$num;$i++)

@@ -51,7 +51,7 @@ include_once 'main.php';
 	<input type="submit" id="submit_post" name="submit" value="Post"/><br><br><br>
 	
 		</form>
-		<form action="Upload.php" method="post" enctype="multipart/form-data">
+		<form action="Upload.php<?php echo "?idgrupo=".$_REQUEST['idgrupo']."" ?>" method="post" enctype="multipart/form-data">
 		Video:<input class="file-upload" id="file-input" name="fileToUpload" type="file" accept="video/*">
 		<input type="submit" id="submit_post" name="submit" value="Post">
 		</form>
@@ -160,7 +160,7 @@ function saveimage($name, $image)
 {
 
 	$con = mysqli_connect("localhost", "root", "", "phpteste");
-	$sql = "insert INTO chat SET idQuemEnviou=17, message='$image', idGrupo=1, isimage=1";
+	$sql = "insert INTO chat SET idQuemEnviou=17, message='$image', idGrupo= ".$_REQUEST['idgrupo']." , isimage=1";
 	$query = mysqli_query($con, $sql);
 
 	if ($query) {
@@ -169,6 +169,7 @@ function saveimage($name, $image)
 		echo "n deu";
 	}
 	mysqli_close($con);
+	header('Location: imageSenderRedirect.php');
 
 }
 

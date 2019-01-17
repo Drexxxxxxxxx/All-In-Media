@@ -70,6 +70,27 @@ if( isset($_REQUEST['action']) ){
 			$query->execute([$idpessoa]);
 			mysqli_close($con);
 		break;
+		case "CreateGroup":
+			$con = mysqli_connect("localhost","root","", "phpteste");
+
+
+			if ($con->connect_error) {
+				die("Connection failed: " . $con->connect_error);
+			} 
+			
+			$sql = "INSERT INTO grupo (nome) VALUES ('".$_REQUEST['nome']."');";
+			
+			if ($con->query($sql) === TRUE) {
+				$last_id = $con->insert_id;
+			}
+			
+			$con->close();
+
+			$con = mysqli_connect("localhost","root","", "phpteste");
+			$query = $db->prepare("INSERT INTO pessoasdogrupo (idpessoa, idgrupo, IsAdmin) VALUES ('".$_SESSION['id']."', '".$last_id."', '1');");
+			$query->execute();
+			mysqli_close($con);
+		break;
 		case "AceitarAmizade":
 			$con = mysqli_connect("localhost","root","", "phpteste");
 			$query = $db->prepare("UPDATE amigos SET Aceite = 1 WHERE id = ".$_REQUEST['id']."");

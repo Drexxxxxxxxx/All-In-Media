@@ -12,14 +12,13 @@
 			src="https://code.jquery.com/jquery-3.3.1.js"
 			integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 			crossorigin="anonymous"></script>
-			<link rel="stylesheet" type="text/css" media="screen" href="stylesheet/style.css" />
-
+		<link rel="stylesheet" type="text/css" media="screen" href="stylesheet/style.css" />
 	</head>
 	<?php
-include_once 'main.php';
-?>
+		include_once 'main.php';
+		?>
 	<body onload="<?php BodyonLoadSessionRequire(); ?>">
-        <header>
+		<header>
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
 					<a class="navbar-brand" href="../Home/home.php">
@@ -54,28 +53,30 @@ include_once 'main.php';
 								<a class="nav-link icns" style="padding:10px" href="#"><i class="fas fa-cog"></i></a>
 								<a class="nav-link icns" style="padding:10px" onclick="" data-toggle="dropdown"><i class="fas fa-user"></i></a>
 								<div class="dropdown-menu" style="left: auto;">
-								<div id="Perfil">
-									<?php
-        Perfil();
-        ?>
-								</div>
-									<h4>Chats:</h4>  
+									<div id="Perfil">
+										<?php
+											Perfil();
+											?>
+									</div>
+									<h4>Chats:</h4>
 									<div id="result">
 										<?php
-            GruposChat();
-            InvitesGrupo();
-            ?>
+											GruposChat();
+											InvitesGrupo();
+											?>
 									</div>
-									<h4>Adicionar Amigo:</h4>  
+									<h4>Adicionar Amigo:</h4>
 									<input type="text" id="AddFriendID">
 									<button onclick="AddFriend($('#AddFriendID').val())">Adicionar</button>
-
-									<h4>Pedidos de amizade:</h4>  
+									<h4>Pedidos de amizade:</h4>
 									<div id="resultPedidos">
 										<?php
-            PedidosAmizade();
-            ?>
+											PedidosAmizade();
+											?>
 									</div>
+									<h4>Criar Grupo:</h4>
+									<input type="text" id="CreateGroupID">
+									<button onclick="CreateGroup($('#CreateGroupID').val())">Adicionar</button>
 								</div>
 							</nav>
 						</ul>
@@ -93,11 +94,11 @@ include_once 'main.php';
 					</nav>
 				</div>
 			</div>
-        </header>
+		</header>
 		<div>
 			<a href="#" onclick="window.location = '../AdicionarConteudo/video.php';"><img src="../Home/images/add_button.png" id="fixedbutton"></a>
 		</div>
-        <script>
+		<script>
 			function updateLike(ola) {
 			
 				$.post('../Home/handlers/ajax.php?action=LikeUpdate&ola='+ola, function(response){
@@ -137,14 +138,14 @@ include_once 'main.php';
 				location.replace("../Home/Home.php");
 				});
 			}
-
+			
 			function RecusarPedido(id)
 			{
 				$.post('../Home/handlers/ajax.php?action=RecusarPdd&id='+id, function(response){			
 				location.replace("../Home/Home.php");
 				});
 			}
-
+			
 			function AddFriend(nome)
 			{
 				$.post('../Home/handlers/ajax.php?action=AddFriend&nome='+nome, function(response){	
@@ -152,6 +153,13 @@ include_once 'main.php';
 				});
 			}
 
+			function CreateGroup(nome)
+			{
+				$.post('../Home/handlers/ajax.php?action=CreateGroup&nome='+nome, function(response){	
+					location.replace("../Home/Home.php");
+				});
+			}
+			
 			//Pedidos amizades script
 			function AceitarAmizade(id)
 			{
@@ -167,10 +175,10 @@ include_once 'main.php';
 			}
 		</script>
 		<?php
-		echo"<div style='background-color: lightgray;'>";
-		GruposChatiframe();
-		echo"</div>";
-		?>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	<script src="../Home/script.js"></script>
+			echo"<div style='background-color: lightgray;'>";
+			GruposChatiframe();
+			echo"</div>";
+			?>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<script src="../Home/script.js"></script>

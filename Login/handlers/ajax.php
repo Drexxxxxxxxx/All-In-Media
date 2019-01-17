@@ -17,7 +17,7 @@ if( isset($_REQUEST['action']) ){
 		if(grupoedele($GrupoId) == 1)
 		{
 		//Trocar o grupo 1 pelo numero do grupo selecionado
-			$query = $db->prepare("select chat.*, grupo.nome, users.name, users.password, users.email from chat, users, grupo WHERE grupo.id = $GrupoId AND idQuemEnviou = users.id GROUP By id");
+			$query = $db->prepare("select chat.*, grupo.nome, users.name, users.password, users.email from chat, users, grupo WHERE grupo.id = $GrupoId AND grupo.id = chat.idGrupo AND idQuemEnviou = users.id GROUP By id");
 			$query->execute();
 			$rs = $query->fetchAll(PDO::FETCH_OBJ);
 			

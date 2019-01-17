@@ -34,17 +34,17 @@ if ($uploadOk == 0) {
 function savevideo ($nomedoficheiro)
 {
     $con = mysqli_connect("localhost","root","", "phpteste");
-    $sql="insert INTO chat SET idQuemEnviou=17, message='$nomedoficheiro', idGrupo=1, isimage=2" ;
+    $sql="insert INTO chat SET idQuemEnviou=17, message='$nomedoficheiro', idGrupo=".$_REQUEST['idgrupo'].", isimage=2" ;
     $query=mysqli_query($con,$sql);
 
     if($query){
     echo"sucess";
     }
     else {
-        echo "n deu";
+        echo "<script>alert('n deu')</script>";
     }
     mysqli_close($con);
-
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 ?>
 
