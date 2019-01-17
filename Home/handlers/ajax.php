@@ -133,6 +133,21 @@ if( isset($_REQUEST['action']) ){
 			$query->execute();
 			mysqli_close($con);
 		break;
+		case "SearchFunction":
+			$con = mysqli_connect("localhost","root","", "phpteste");
+
+			$query = $db->prepare("SELECT * FROM conteudo WHERE Nome LIKE '%".$_REQUEST['texto']."%'");
+			$query->execute();
+			$rs = $query->fetchAll(PDO::FETCH_OBJ);
+			
+			$idpessoa='';
+			foreach( $rs as $r ){
+				echo "<p><a href='#' onclick='SearchSugestionClickFunction(".$r->id.")'>" .$r->Nome. "</a></p>";
+			}
+			mysqli_close($con);
+
+			echo $idpessoa;
+		break;
 	}
   }
 ?>

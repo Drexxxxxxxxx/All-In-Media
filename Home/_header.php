@@ -29,7 +29,12 @@
 					</button>
 					<div class="collapse navbar-collapse" id="collapsibleNavbar">
 						<div class="mx-auto d-block text-center" style="width:80%">
-							<input type="search" name="" placeholder="Search whateaver you want..." id="searchInput">
+							<div class="input-group" id="SearchInputDiv"  style="display: none;">
+								<input type="text" class="form-control" placeholder="Search..." onkeyup="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" onchange="SearchFunction($('#SearchInputID').val());" id="SearchInputID">
+								<div class="input-group-append">
+									<Button class="input-group-text" onclick="SearchTextEnterFunction($('#SearchInputID').val());">&ThickSpace; Search &ThickSpace;</Button>
+								</div>
+							</div>
 						</div>
 						<div class="sidenav_2">
 							<nav class="nav justify-content-center">
@@ -49,7 +54,7 @@
 						</div>
 						<ul class="navbar-nav ml-auto">
 							<nav class="nav justify-content-center">
-								<a class="nav-link icns" style="padding:10px"  href="#"><i class="fas fa-search"></i></a>
+								<a class="nav-link icns" style="padding:10px"  href="#" onclick="$('#SearchInputDiv').toggle();"><i class="fas fa-search"></i></a>
 								<a class="nav-link icns" style="padding:10px" href="#"><i class="fas fa-cog"></i></a>
 								<a class="nav-link icns" style="padding:10px" onclick="" data-toggle="dropdown"><i class="fas fa-user"></i></a>
 								<div class="dropdown-menu" style="left: auto;">
@@ -95,6 +100,7 @@
 				</div>
 			</div>
 		</header>
+		<div id="SearchResultDiv"></div>
 		<div>
 			<a href="#" onclick="window.location = '../AdicionarConteudo/video.php';"><img src="../Home/images/add_button.png" id="fixedbutton"></a>
 		</div>
@@ -172,6 +178,23 @@
 				$.post('../Home/handlers/ajax.php?action=RecusarAmizade&id='+id, function(response){	
 					alert(response);		
 				});
+			}
+
+			function SearchFunction(texto)
+			{
+				$.post('../Home/handlers/ajax.php?action=SearchFunction&texto='+texto, function(response){	
+					$("#SearchResultDiv").html(response);		
+				});
+			}
+
+			function SearchSugestionClickFunction(id)
+			{
+				location.replace("../Home/OneVideoImg.php?id=" + id);
+			}
+
+			function SearchTextEnterFunction(texto)
+			{
+				location.replace("../Home/OneVideoImg.php?texto=" + texto);
 			}
 		</script>
 		<?php
