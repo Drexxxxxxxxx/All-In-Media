@@ -90,6 +90,23 @@ if( isset($_REQUEST['action']) ){
 			$query = $db->prepare("update pessoasdogrupo SET IsAdmin=0 WHERE id=?");
 			$query->execute([$_REQUEST['id']]);
 		break;
+		case "RecoverPassword":
+			$con = mysqli_connect("localhost","root","", "phpteste");
+			$sql = "SELECT * FROM users WHERE email = '".$_REQUEST['email']."'";
+			$query=mysqli_query($con,$sql);
+			$num=mysqli_num_rows($query);
+			for($i=0;$i<$num;$i++)
+			{
+				$result=mysqli_fetch_array($query);
+				echo '<script>window.alert("Enviamos a password para o seu email")</script>';
+				//AQUI ENVIA SE A PASSWORD
+			}
+			if($num == 0)
+			{
+				echo '<script>window.alert("Email Incorreto")</script>';
+			}
+			mysqli_close($con);
+		break;
   }
 }
 function grupoedele($id)

@@ -81,7 +81,8 @@
 									</div>
 									<h4>Criar Grupo:</h4>
 									<input type="text" id="CreateGroupID">
-									<button onclick="CreateGroup($('#CreateGroupID').val())">Adicionar</button>
+									<p><button onclick="CreateGroup($('#CreateGroupID').val())">Adicionar</button></p>
+									<button onclick="Logout()">Logout</button>
 								</div>
 							</nav>
 						</ul>
@@ -105,6 +106,11 @@
 			<a href="#" onclick="window.location = '../AdicionarConteudo/video.php';"><img src="../Home/images/add_button.png" id="fixedbutton"></a>
 		</div>
 		<script>
+			function Logout(){
+				$.post('../Home/handlers/ajax.php?action=Logout', function(response){					
+					window.location = '../Login/Login.php';
+				});
+			}
 			function updateLike(ola) {
 			
 				$.post('../Home/handlers/ajax.php?action=LikeUpdate&ola='+ola, function(response){

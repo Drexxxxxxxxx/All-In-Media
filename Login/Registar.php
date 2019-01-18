@@ -104,7 +104,7 @@
                             <input type="email" name="email" id="email" required="required" placeholder="Insert your Email"><br><br>
                             <input type="submit" id="btn_login" value="Sign Up" name="submit"><br><br>
 
-                            Already a member? <a href=""> Sign In </a><br><br>
+                            Already a member? <a href="#" onclick="window.location = 'Login.php';"> Sign In </a><br><br>
                             By signing up, you agree to our <a href="">Terms</a> and that you have read our <a href="">Privacy Policy</a>  and <a href="">Content Policy</a>.<br><br>
                         <hr>
                         </fieldset>
@@ -138,19 +138,51 @@
 <?php
 if(isset($_POST['submit'])){
     if(isset($_POST['name']) && !empty($_POST['name']) && isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['email']) && !empty($_POST['email'])) {
-        Registarfunction($_POST['name'], $_POST['password'], $_POST['email']);
+        JaexisteEmail($_POST['name'], $_POST['password'], $_POST['email']);
     }
+}
+
+function JaexisteEmail($name, $password, $email){
+    $con = mysqli_connect("localhost","root","", "phpteste");
+    $sql = "SELECT * FROM users WHERE email = '".$email."'";
+    $query=mysqli_query($con,$sql);
+    $num=mysqli_num_rows($query);
+    if($num == 0)
+    {
+        JaexisteName($name, $password, $email);
+    }
+    else {
+       echo '<script>alert("Este Email Já existe")</script>';
+    }
+    mysqli_close($con);
+}
+function JaexisteName($name, $password, $email){
+    $con = mysqli_connect("localhost","root","", "phpteste");
+    $sql = "SELECT * FROM users WHERE name = '".$name."'";
+    $query=mysqli_query($con,$sql);
+    $num=mysqli_num_rows($query);
+    if($num == 0)
+    {
+        Registarfunction($name, $password, $email);
+    }
+    else {
+       echo '<script>alert("Este Nome Já existe")</script>';
+    }
+    mysqli_close($con);
 }
 
 function Registarfunction($name, $password, $email)
 {
     $con = mysqli_connect("localhost","root","", "phpteste");
-    $sql = "insert INTO users (name, password, email) VALUES ('".htmlspecialchars($name)."', '".hash("sha512", htmlspecialchars($password))."', '".htmlspecialchars($email)."')";
+    $namecode = hash("sha512", htmlspecialchars($name));
+    //Aqui tem que se enviar o email com o link (o link e a pagina com o $namecode)
+    $sql = "insert INTO users (name, password, email, Ativo, LinkAtivo) VALUES ('".htmlspecialchars($name)."', '".hash("sha512", htmlspecialchars($password))."', '".htmlspecialchars($email)."', 0, '".$namecode."')";
    echo $sql;
    $idlogin;
     $query=mysqli_query($con,$sql);
     if($query){
-        echo"Utilizdor criado";
+        echo "<script>alert('Utilizdor criado')</script>";
+        echo "<script>window.location = 'Login.php';</script>";
      } 
      else
      {

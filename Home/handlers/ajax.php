@@ -148,6 +148,28 @@ if( isset($_REQUEST['action']) ){
 
 			echo $idpessoa;
 		break;
+		case "CheckPassword":
+			$con = mysqli_connect("localhost","root","", "phpteste");
+
+			$query = $db->prepare("SELECT * FROM users WHERE id = '".$_SESSION['id']."' AND password = '" .hash("sha512", htmlspecialchars($_REQUEST['Password'])). "'");
+			$query->execute();
+			$rs = $query->fetchAll(PDO::FETCH_OBJ);
+			
+			foreach( $rs as $r ){
+				echo 1;
+			}
+			mysqli_close($con);
+		break;
+		case "ChangePassword":
+			$con = mysqli_connect("localhost","root","", "phpteste");
+			$query = $db->prepare("UPDATE users SET password = '".hash("sha512", htmlspecialchars($_REQUEST['Password']))."' WHERE id = ".$_SESSION['id']."");
+			$query->execute();
+			mysqli_close($con);
+			echo 1;
+		break;
+		case "Logout":
+			session_destroy();
+		break;
 	}
   }
 ?>

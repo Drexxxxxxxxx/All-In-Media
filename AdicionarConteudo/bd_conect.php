@@ -69,6 +69,7 @@ if(isset($_POST['submit'])){
   else{
       $name=addslashes($_FILES['image']['name']);
       $image=base64_encode(file_get_contents(addslashes($_FILES['image']['tmp_name'])));
+      echo '<h1>'.$image.'</h1>';
       saveimage($name,$image);
   }
 }
@@ -83,9 +84,9 @@ if($query){
   echo"sucess";
 }
 mysqli_close($con);
+
+echo '<script>window.location = "../Login/imageSenderRedirect.php";</script>';
 }
-
-
 
 
 ?>

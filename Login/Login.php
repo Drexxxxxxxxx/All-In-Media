@@ -16,9 +16,6 @@
 include_once 'main.php';
 ?>
 <body>
-<?php
-include_once 'main.php';
-?>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
@@ -107,7 +104,7 @@ include_once 'main.php';
                             <label id="lbl_password" for="password"> Password </label><br>
                             <input type="password" name="password" id="password"  required="required" placeholder="Insert your password"><br><br>
                             <input type="submit" id="btn_login" value="Login" name="submit"><br><br>
-                            <a href=""> Forgot Password </a><br><br>
+                            <a href="#" onclick="$('#SearchInputDiv').toggle();"> Forgot Password </a><br><br>
                             New to All In Media? <a href="#" onclick="window.location = 'Registar.php';"> Sign Up </a><br><br>
                             By signing up, you agree to our <a href="">Terms</a> and that you have read our <a href="">Privacy Policy</a>  and <a href="">Content Policy</a>.<br><br>
                         <hr>
@@ -118,8 +115,22 @@ include_once 'main.php';
                 </div>
             </div>
     </form>
+    <div class="input-group" id="SearchInputDiv"  style="display: none;">
+								<input type="text" class="form-control" placeholder="Insert youre email to recover youre password" id="SearchInputID">
+								<div class="input-group-append">
+									<Button class="input-group-text" onclick="RecoverPassword();">&ThickSpace; Search &ThickSpace;</Button>
+								</div>
+							</div>
+                            <p id="responseid"></p>
 </div>
-
+<script>
+    function RecoverPassword()
+    {
+        $.post('handlers/ajax.php?action=RecoverPassword&email=' + $('#SearchInputID').val(), function(response){			
+            $('#responseid').html(response);
+        });        
+    }
+</script>
 <?php
 if(isset($_POST['submit'])){
     if(isset($_POST['name']) && !empty($_POST['name']) && isset($_POST['password']) && !empty($_POST['password'])) {
