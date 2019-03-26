@@ -23,26 +23,24 @@ if( isset($_REQUEST['action']) ){
 			
 			$chat = '';
 			
-			
+			$ultimo = $_REQUEST['ultimo'];
 		
 			foreach( $rs as $r ){
-				if($r->id > $_REQUEST['ultimo'])
+				$teste = $r->id;
+				if($r->id > $_REQUEST['ultimo'] || $_REQUEST['ultimo'] == "undefined")
 				{
 					if($r->isimage==1)
 					{
-						$chat .=  '<div class="siglemessage" id="'.$r->id.'"><strong>'.$r->name.' says:  </strong><img class="img" src="data:image;base64,'.$r->message.'" style="max-height: 500px; max-width: 100%;"></div>';
+						$chat .=  '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 eachclass" id="'.$r->id.'"><div class="user_sms"><div class="row"><p class="mb-0">'.$r->name.' says:  </p><img class="img" src="data:image;base64,'.$r->message.'" style="max-height: 500px; max-width: 100%; width: auto;"><p class="whensend">'.$r->date.'</p></div></div></div>';
 					}
 					else if($r->isimage==0)
 					{
-					$chat .=  '<div class="siglemessage" id="'.$r->id.'"><strong>'.$r->name.' says:  </strong>'.$r->message.'</div>';
+					$chat .=  '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 eachclass" id="'.$r->id.'"><div class="user_sms"><div class="row"><p>'.$r->name.' says:  </p>'.$r->message.'<p class="whensend">'.$r->date.'</p></div></div></div>';
 					}
 					else if($r->isimage==2)
 					{
-						
-						//$chat .=  '<script>$( ".inner" ).append( "<strong>'.$r->name.' says:  </strong><video width="400" controls><source src="'.$r->message.'" type="video/mp4"></video>'.$r->message.'" );</script>';
-					//	$chat .=  "<div class='siglemessage'><strong>".$r->name." says:  </strong><button onclick=AddPersonBtn1()> Adicionar pessoas ao grupo </button></div>";
 					$LOL="'".$r->message."'";
-					$chat .=  '<div class="siglemessage" id="'.$r->id.'"><strong>'.$r->name.' says:  </strong> <input type="image" onclick="VerVideo('.$LOL.')" src="https://beingclarity.com/wp-content/uploads/2018/01/play-button-png-play-video-button-png-321.png" class="imagemvideobtn"> <video width="100%"><source src="'.$r->message.'" type="video/mp4"></video>'.$r->message.'</div>';
+					$chat .=  '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 eachclass" id="'.$r->id.'"><div class="user_sms"><div class="row"><p class="mb-0">'.$r->name.' says:  </p> <div class="position-relative"> <input type="image" onclick="VerVideo('.$LOL.')" src="https://beingclarity.com/wp-content/uploads/2018/01/play-button-png-play-video-button-png-321.png" class="imagemvideobtn"> <video height="100%" width="100%"><source src="'.$r->message.'" type="video/mp4"></video> </div>'.$r->message.'<p class="whensend">'.$r->date.'</p></div></div></div>';
 					}
 				}
 			}
@@ -106,6 +104,24 @@ if( isset($_REQUEST['action']) ){
 				echo '<script>window.alert("Email Incorreto")</script>';
 			}
 			mysqli_close($con);
+		break;
+		case "ChatName":
+			$con = mysqli_connect("localhost","root","", "phpteste");
+			$sql = "SELECT * FROM grupo WHERE id = '".$_REQUEST['idgrupo']."'";
+			$query=mysqli_query($con,$sql);
+			$num=mysqli_num_rows($query);
+			for($i=0;$i<$num;$i++)
+			{
+				$result=mysqli_fetch_array($query);
+				echo $result['nome'];
+			}
+			mysqli_close($con);
+		break;
+		case "LastSeenMessage":
+			session_start();
+			echo "update pessoasdogrupo SET UltimaLida=".$_REQUEST['ultimo']." WHERE idpessoa=".$_SESSION['id']." AND idgrupo =".$_REQUEST['idgrupo']."";
+			$query = $db->prepare("update pessoasdogrupo SET UltimaLida=".$_REQUEST['ultimo']." WHERE idpessoa=".$_SESSION['id']." AND idgrupo =".$_REQUEST['idgrupo']."");
+			$query->execute();
 		break;
   }
 }

@@ -227,6 +227,7 @@ line-height: 30px;
     background-color: white;
     padding: 10px;
     transition: 0.3s;
+    cursor: pointer;
 }.msg_div:hover{
     background-color:#DCDCDC ;
     

@@ -6,7 +6,6 @@ include_once '_header.php';
 		</div>
 		<div class="Adicionarppldiv"> </div>
 		<?php 
-	echo "<script>alert('test');</script>";
 	display(0);
 	?>
 	</body>

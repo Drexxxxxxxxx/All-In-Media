@@ -170,6 +170,84 @@ if( isset($_REQUEST['action']) ){
 		case "Logout":
 			session_destroy();
 		break;
+		case "SearchChatGroup":
+			$con = mysqli_connect("localhost","root","", "phpteste");
+			$sql = "select grupo.id AS grupoid, grupo.nome, pessoasdogrupo.* FROM pessoasdogrupo, grupo WHERE idpessoa = '".$_SESSION['id']."' and pessoasdogrupo.idgrupo = grupo.id and pessoasdogrupo.IsAdmin != 3 AND grupo.nome LIKE '%".$_REQUEST['texto']."%'"; 			
+			$query=mysqli_query($con,$sql);
+			$num=mysqli_num_rows($query);
+			for($i=0;$i<$num;$i++)
+			{
+				$result=mysqli_fetch_array($query);
+				$img= $result['nome'];
+				$idlogin = "../Login/index.php?idgrupo=".$result['idgrupo'];
+				$idpessoasdogrupo = $result['id'];
+				$ultimaLida = $result['UltimaLida'];
+				AddtodivgrupoMenu($img, $idlogin, $idpessoasdogrupo, $ultimaLida);
+			}
+			mysqli_close($con);
+		break;		
 	}
+}	
+
+function AddtodivgrupoMenu($Nome, $link, $idpessoasdogrupo, $ultimaLida)
+{
+	$con = mysqli_connect("localhost","root","", "phpteste");
+	$sql = "SELECT COUNT(*) FROM chat, pessoasdogrupo WHERE chat.id > ".$ultimaLida." AND chat.idGrupo = pessoasdogrupo.idgrupo AND pessoasdogrupo.id = " .$idpessoasdogrupo;
+	$query=mysqli_query($con,$sql);
+	$num=mysqli_num_rows($query);
+	$NumeroDeMensagensParaLer = 0;
+	for($i=0;$i<$num;$i++)
+	{
+	$result=mysqli_fetch_array($query);
+	$NumeroDeMensagensParaLer = $result["COUNT(*)"];
+	}
+	mysqli_close($con);
+
+	lastmessage($Nome, $link, $idpessoasdogrupo, $NumeroDeMensagensParaLer, $ultimaLida);
+}
+
+function lastmessage($Nome, $link, $idpessoasdogrupo, $NumeroDeMensagensParaLer, $ultimaLida)
+{
+  $con = mysqli_connect("localhost","root","", "phpteste");
+  $sql = "SELECT * FROM chat, pessoasdogrupo where pessoasdogrupo.id = ".$idpessoasdogrupo." AND pessoasdogrupo.idgrupo = chat.idGrupo ORDER BY chat.ID DESC LIMIT 1";
+  $query=mysqli_query($con,$sql);
+  $num=mysqli_num_rows($query);
+  for($i=0;$i<$num;$i++)
+  {
+    $result=mysqli_fetch_array($query);
+    $message = $result["message"];
+    $date = $result["date"];
+    
+    WriteChatsDivs($Nome, $link, $NumeroDeMensagensParaLer, $message, $date, $ultimaLida);
   }
+  mysqli_close($con);
+}
+
+function WriteChatsDivs($Nome, $link, $NumeroDeMensagensParaLer, $message, $date, $ultimaLida) {
+	echo '
+	<div class="row msg_div ml-0 mr-0" onclick="window.location.href=\''.$link.'&LastRead='.$ultimaLida.'\'">
+			<div class="col-lg-2 col-md-2 col-sm-4 col-4" style="text-align:center">
+				<input type="image" class="profile_pic align-middle" src="../_Groups/images/profile.jpeg" alt="">
+			</div>
+			<div class="col-lg-8 col-md-8 col-sm-6 col-6">
+				<br>
+				<strong>
+				'.$Nome.'
+				</strong><br>
+				<p>'.$message.'</p>
+			</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-2" style="text-align:center">
+				<br>
+				<p> '.$date.' </p>
+				<div class="notificacao">
+					<p class="notificacao_icn" >
+						'.$NumeroDeMensagensParaLer.'
+					</p>
+				</div>
+			</div>
+		</div>
+		<hr>
+	';
+}
+
 ?>
