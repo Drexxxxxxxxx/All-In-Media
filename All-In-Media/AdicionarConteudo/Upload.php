@@ -32,6 +32,20 @@ if ($uploadOk == 0) {
 }
 
 
+function GetLastID ()
+{
+  $con = mysqli_connect("localhost","root","", "phpteste");
+  $sql = "SELECT * FROM conteudo ORDER BY ID DESC LIMIT 1";
+  $query=mysqli_query($con,$sql);
+  $num=mysqli_num_rows($query);
+  for($i=0;$i<$num;$i++)
+  {
+    $result=mysqli_fetch_array($query);
+    $result['id'];
+  }
+  mysqli_close($con);
+}
+
 
 function savevideo ($nomedoficheiro)
 {
