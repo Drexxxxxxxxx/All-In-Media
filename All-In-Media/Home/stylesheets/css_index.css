@@ -104,10 +104,10 @@ html{
 /* ADD BUTTON */
 
 #fixedbutton {
-    position: fixed;
     bottom: 0px;
-    right: 0px; 
-    width: 100px;
+    right: 0px;
+    width: 51px;
+    z-index: 1;
 }
 
 /* --------------------------------------------------- */
