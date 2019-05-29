@@ -141,10 +141,8 @@ html{
 line-height: 30px;
 }
 
-.div_msg{
- 
+.div_msg{ 
   margin-top: 20px;
-
 }
 
 .display_msg{
@@ -305,3 +303,27 @@ line-height: 30px;
 .user_sms>.row>div {
     width: 100%;
 }
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  .btn2 {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }

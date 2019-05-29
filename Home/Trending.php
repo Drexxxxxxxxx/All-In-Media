@@ -8,5 +8,9 @@ include_once '_header.php';
 		<?php 
 	Trendisplay();
 	?>
+		<script>
+	showSlides(slideIndex);
+
+	</script>
 	</body>
 </html>

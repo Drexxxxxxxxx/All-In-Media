@@ -1,18 +1,18 @@
 <?php
 include_once '_header.php';
 ?>
-<div id="Perfil">
+<div id="Perfil" class="text-center">
+<br>
+<br>
 <?php
 PerfilData();
 Amigos();
-mydisplay();
 ?>
 </div>
-<button onclick="$('#CurrentPassWordDivID').toggle();">Change Password</button>
 <div class="input-group" id="CurrentPassWordDivID"  style="display: none;">
     <input type="password" class="form-control" placeholder="Insert youre current password" id="CurrentPassWordInputID">
     <div class="input-group-append">
-        <Button class="input-group-text" onclick="CurrentPassWordFuncID();">&ThickSpace; Search &ThickSpace;</Button>
+        <Button class="input-group-text" onclick="CurrentPassWordFuncID();">&ThickSpace; Current Password &ThickSpace;</Button>
     </div>
 </div>
 
@@ -20,7 +20,7 @@ mydisplay();
     <input type="password" class="form-control" placeholder="Insert the new password" id="NewPassWordInputID">
     <input type="password" class="form-control" placeholder="Insert Same password" id="NewPassWordInputID2">
     <div class="input-group-append">
-        <Button class="input-group-text" onclick="ChangePassWordFuncID();">&ThickSpace; Search &ThickSpace;</Button>
+        <Button class="input-group-text" onclick="ChangePassWordFuncID();">&ThickSpace; Alter Password &ThickSpace;</Button>
     </div>
 </div>
 <script>

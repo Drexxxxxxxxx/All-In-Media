@@ -142,7 +142,7 @@ if( isset($_REQUEST['action']) ){
 			
 			$idpessoa='';
 			foreach( $rs as $r ){
-				echo "<p><a href='#' onclick='SearchSugestionClickFunction(".$r->id.")'>" .$r->Nome. "</a></p>";
+				echo "<p onclick='SearchSugestionClickFunction(".$r->id.")'  style='cursor: pointer'><a href='#'>" .$r->Nome. "</a></p>";
 			}
 			mysqli_close($con);
 

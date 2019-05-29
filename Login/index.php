@@ -18,7 +18,7 @@ include_once '../Home/_header.php';
 		<nav class="navbar navbar-light bg-light justify-content-between nvb_perfil">
 			<a class="navbar-brand" href="Home.php"><i class="fas fa-arrow-left"> </i> <input type="image" src="images/profile.jpeg" class="friend_ppic" alt=""> <p id="nomegrupoId" class="d-inline"></p></a>
 			<form class="form-inline">
-					<a class="nav-link " style="padding:10px" href="#"><i class="fas fa-video"></i></a>
+					<a class="nav-link " style="padding:10px" href="../../chatapp-master/chatapp/index.html?room=<?php echo $_REQUEST['idgrupo']."" ?>"><i class="fas fa-video"></i></a>
 					<a class="nav-link " style="padding:10px" href="#"><i class="fas fa-phone"></i></a>
 					<a class="nav-link " style="padding:10px" href="#"><i class="fas fa-ellipsis-v"></i></a>
 			</form>
@@ -26,7 +26,7 @@ include_once '../Home/_header.php';
 		<div class="centeralised">
 			<div class="row" style="overflow:auto; max-height: 500px;" id="chathistory"></div>
 			<div class="chatbox">
-				<form action="" method="POST" enctype="multipart/form-data">
+				<form action="" method="POST" id="FormUploadImage" enctype="multipart/form-data">
 					<div class="row div_msg">
 						<div class="col-lg-11 col-md-10 col-sm-10 col-9" >
 							<?php
@@ -40,20 +40,32 @@ include_once '../Home/_header.php';
 						</div>                                                             
 					</div>
 
-					Imagem:<input class="file-upload" id="file-input" type="file" name="image" onclick="myFunction2('.$id.')"/>
-					<input type="submit" id="submit_post" name="submit" value="Post"/><br><br><br>
+					<div class="upload-btn-wrapper">
+						<button class="btn2">Upload Image</button>
+						<input class="file-upload" id="file-uploadImage" type="file" name="image"/>
+					</div>
+					<input type="submit" id="submit_image" name="submit" value="Post" style="display:none;"/>
 				</form>
-				<form action="Upload.php<?php echo "?idgrupo=".$_REQUEST['idgrupo']."" ?>" method="post" enctype="multipart/form-data">
-					Video:<input class="file-upload" id="file-input" name="fileToUpload" type="file" accept="video/*">
-					<input type="submit" id="submit_post" name="submit" value="Post">
+				<form id="formUploadVideo" action="Upload.php<?php echo "?idgrupo=".$_REQUEST['idgrupo']."" ?>" method="post" enctype="multipart/form-data">
+					<div class="upload-btn-wrapper">
+						<button class="btn2">Upload Video</button>
+						<input class="file-upload" id="file-uploadVideo" name="fileToUpload" type="file" accept="video/*">
+					</div>
 				</form>
 			</div>
 		</div>
 	<script>
+		document.getElementById("file-uploadVideo").onchange = function() {
+			document.getElementById("formUploadVideo").submit();
+		}
+
+		document.getElementById("file-uploadImage").onchange = function() {
+			$("#submit_image").click();
+		}
 
 		var valor = 0;
 		$(document).ready(function(){
-			loadChat(1);
+			//loadChat(1);
 			ChatName();
 		});
 		function ChatName()
@@ -96,8 +108,16 @@ include_once '../Home/_header.php';
 				{
 					var urlval = getUrlVars()["idgrupo"];
 					var LastRead = getUrlVars()["LastRead"];
-					primeiravez = 1;
-					window.location.replace('#' + parseInt(LastRead), "#" + LastRead);
+					var element_to_scroll_to = document.getElementById(parseInt(LastRead));
+					if(element_to_scroll_to != null)
+					{
+						primeiravez = 1;
+						element_to_scroll_to.scrollIntoView();
+					}	
+					$.post('handlers/ajax.php?action=GetLastMessage&idgrupo='+urlval, function(response){
+						var newurl = window.location.href;
+    					window.history.pushState({path:newurl},'',newurl);
+					});					
 				}
 		}, 1000);
 
@@ -175,8 +195,8 @@ function saveimage($name, $image)
 		echo "n deu";
 	}
 	mysqli_close($con);
-	header('Location: imageSenderRedirect.php');
-
+	echo "<script type='text/javascript'>document.location.href='imageSenderRedirect.php';</script>";
+	echo '<META HTTP-EQUIV="refresh" content="0;URL=imageSenderRedirect.php">';
 }
 
 function AddPersonToGroup()

@@ -29,18 +29,37 @@ if( isset($_REQUEST['action']) ){
 				$teste = $r->id;
 				if($r->id > $_REQUEST['ultimo'] || $_REQUEST['ultimo'] == "undefined")
 				{
-					if($r->isimage==1)
+					if($r->idQuemEnviou == $_SESSION['id'])
 					{
-						$chat .=  '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 eachclass" id="'.$r->id.'"><div class="user_sms"><div class="row"><p class="mb-0">'.$r->name.' says:  </p><img class="img" src="data:image;base64,'.$r->message.'" style="max-height: 500px; max-width: 100%; width: auto;"><p class="whensend">'.$r->date.'</p></div></div></div>';
+						if($r->isimage==1)
+						{
+							$chat .=  '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 eachclass" id="'.$r->id.'"><div class="user_sms"><div class="row"><p class="mb-0"> <b>You said:</b> </p><img class="img" src="data:image;base64,'.$r->message.'" style="max-height: 500px; max-width: 100%; width: auto;"><p class="whensend">'.$r->date.'</p></div></div></div>';
+						}
+						else if($r->isimage==0)
+						{
+							$chat .=  '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 eachclass" id="'.$r->id.'"><div class="user_sms"><div class="row"><p> <b>You said:</b> </p>'.$r->message.'<p class="whensend">'.$r->date.'</p></div></div></div>';
+						}
+						else if($r->isimage==2)
+						{
+							$LOL="'".$r->message."'";
+							$chat .=  '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 eachclass" id="'.$r->id.'"><div class="user_sms"><div class="row"><p class="mb-0"> <b>You said:</b>  </p> <div class="position-relative"> <input type="image" onclick="VerVideo('.$LOL.')" src="https://beingclarity.com/wp-content/uploads/2018/01/play-button-png-play-video-button-png-321.png" class="imagemvideobtn"> <video height="100%" width="100%"><source src="'.$r->message.'" type="video/mp4"></video> </div>'.$r->message.'<p class="whensend">'.$r->date.'</p></div></div></div>';
+						}
 					}
-					else if($r->isimage==0)
+					else
 					{
-					$chat .=  '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 eachclass" id="'.$r->id.'"><div class="user_sms"><div class="row"><p>'.$r->name.' says:  </p>'.$r->message.'<p class="whensend">'.$r->date.'</p></div></div></div>';
-					}
-					else if($r->isimage==2)
-					{
-					$LOL="'".$r->message."'";
-					$chat .=  '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 eachclass" id="'.$r->id.'"><div class="user_sms"><div class="row"><p class="mb-0">'.$r->name.' says:  </p> <div class="position-relative"> <input type="image" onclick="VerVideo('.$LOL.')" src="https://beingclarity.com/wp-content/uploads/2018/01/play-button-png-play-video-button-png-321.png" class="imagemvideobtn"> <video height="100%" width="100%"><source src="'.$r->message.'" type="video/mp4"></video> </div>'.$r->message.'<p class="whensend">'.$r->date.'</p></div></div></div>';
+						if($r->isimage==1)
+						{
+							$chat .=  '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 eachclass" id="'.$r->id.'"><div class="user_sms float-left"><div class="row"><p class="mb-0"> <b>'.$r->name.' said:</b>  </p><img class="img" src="data:image;base64,'.$r->message.'" style="max-height: 500px; max-width: 100%; width: auto;"><p class="whensend">'.$r->date.'</p></div></div></div>';
+						}
+						else if($r->isimage==0)
+						{
+							$chat .=  '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 eachclass" id="'.$r->id.'"><div class="user_sms float-left"><div class="row"><p> <b>'.$r->name.' said:</b>  </p>'.$r->message.'<p class="whensend">'.$r->date.'</p></div></div></div>';
+						}
+						else if($r->isimage==2)
+						{
+							$LOL="'".$r->message."'";
+							$chat .=  '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 eachclass" id="'.$r->id.'"><div class="user_sms float-left"><div class="row"><p class="mb-0"> <b>'.$r->name.' said:</b>  </p> <div class="position-relative"> <input type="image" onclick="VerVideo('.$LOL.')" src="https://beingclarity.com/wp-content/uploads/2018/01/play-button-png-play-video-button-png-321.png" class="imagemvideobtn"> <video height="100%" width="100%"><source src="'.$r->message.'" type="video/mp4"></video> </div>'.$r->message.'<p class="whensend">'.$r->date.'</p></div></div></div>';
+						}
 					}
 				}
 			}
@@ -122,6 +141,19 @@ if( isset($_REQUEST['action']) ){
 			echo "update pessoasdogrupo SET UltimaLida=".$_REQUEST['ultimo']." WHERE idpessoa=".$_SESSION['id']." AND idgrupo =".$_REQUEST['idgrupo']."";
 			$query = $db->prepare("update pessoasdogrupo SET UltimaLida=".$_REQUEST['ultimo']." WHERE idpessoa=".$_SESSION['id']." AND idgrupo =".$_REQUEST['idgrupo']."");
 			$query->execute();
+		break;
+		case "GetLastMessage":
+			session_start();
+			$con = mysqli_connect("localhost","root","", "phpteste");
+			$sql = "SELECT * FROM pessoasdogrupo WHERE idpessoa = ".$_SESSION['id']." AND idgrupo = ".$_REQUEST['idgrupo']."";
+			$query=mysqli_query($con,$sql);
+			$num=mysqli_num_rows($query);
+			for($i=0;$i<$num;$i++)
+			{
+				$result=mysqli_fetch_array($query);
+				return $result['UltimaLida'];
+			}
+			mysqli_close($con);
 		break;
   }
 }

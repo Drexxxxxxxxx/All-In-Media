@@ -8,5 +8,9 @@ include_once '_header.php';
 		<?php 
 	display(0);
 	?>
+	<script>
+	showSlides(slideIndex);
+
+	</script>
 	</body>
 </html>

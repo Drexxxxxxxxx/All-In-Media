@@ -5,5 +5,9 @@ include_once '_header.php';
 		<?php 
 	mydisplay();
 	?>
+		<script>
+	showSlides(slideIndex);
+
+	</script>
 	</body>
 </html>

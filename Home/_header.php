@@ -7,8 +7,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" media="screen" href="../Login/stylesheets/css_index.css" />
 		<link rel="stylesheet" type="text/css" media="screen" href="../Home/stylesheets/css_index.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="../Home/stylesheets/SlideShow.css" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+		<script src="../Home/js/SlideShow.js"></script>
 		<script
 			src="https://code.jquery.com/jquery-3.3.1.js"
 			integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
@@ -36,6 +38,9 @@
 									<Button class="input-group-text" onclick="SearchTextEnterFunction($('#SearchInputID').val());">&ThickSpace; Search &ThickSpace;</Button>
 								</div>
 							</div>
+							<div class="position-relative">
+								<div id="SearchResultDiv" class="bg-light position-absolute w-100"></div>
+							</div>
 						</div>
 						<div class="sidenav_2">
 							<nav class="nav justify-content-center">
@@ -57,22 +62,22 @@
 							<nav class="nav justify-content-center">
 								<a class="nav-link icns" style="padding:10px"  href="#" onclick="$('#SearchInputDiv').toggle();"><i class="fas fa-search"></i></a>
 								<a class="nav-link icns" style="padding:10px" onclick="" data-toggle="dropdown"><i class="fas fa-user"></i></a>
-								<div class="dropdown-menu" style="left: auto;">
+								<div class="dropdown-menu" style="left: auto; top: 65px; padding: 0px;">
 									<div id="Perfil">
 										<?php
 											Perfil();
 											?>
 									</div>
 									<h4>Chats:</h4>
-									<div id="result">
+									<div id="result" style="max-height: 150px;overflow: auto;">
 										<?php
 											GruposChat();
 											InvitesGrupo();
 											?>
 									</div>
 									<h4>Adicionar Amigo:</h4>
-									<input type="text" id="AddFriendID">
-									<button onclick="AddFriend($('#AddFriendID').val())">Adicionar</button>
+									<input type="text" class="w-100" id="AddFriendID">
+									<button class="w-100 btn btn-primary" onclick="AddFriend($('#AddFriendID').val())">Adicionar</button>
 									<h4>Pedidos de amizade:</h4>
 									<div id="resultPedidos">
 										<?php
@@ -80,9 +85,9 @@
 											?>
 									</div>
 									<h4>Criar Grupo:</h4>
-									<input type="text" id="CreateGroupID">
-									<p><button onclick="CreateGroup($('#CreateGroupID').val())">Adicionar</button></p>
-									<button onclick="Logout()">Logout</button>
+									<input type="text" id="CreateGroupID" class="w-100">
+									<p><button class="w-100 btn btn-primary" onclick="CreateGroup($('#CreateGroupID').val())">Adicionar</button></p>
+									<button onclick="Logout()" class="w-100 btn btn-primary">Logout</button>
 								</div>
 							</nav>
 						</ul>
@@ -101,7 +106,6 @@
 				</div>
 			</div>
 		</header>
-		<div id="SearchResultDiv"></div>
 		<div>
 			<a href="#" onclick="window.location = '../AdicionarConteudo/video.php';"><img src="../Home/images/add_button.png" id="fixedbutton"></a>
 		</div>
