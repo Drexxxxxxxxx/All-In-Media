@@ -31,7 +31,7 @@ if ($uploadOk == 0) {
    }
 }
 
-
+$LastId = 0;
 function GetLastID ()
 {
   $con = mysqli_connect("localhost","root","", "phpteste");
@@ -41,7 +41,7 @@ function GetLastID ()
   for($i=0;$i<$num;$i++)
   {
     $result=mysqli_fetch_array($query);
-    $result['id'];
+    $LastId = $result['id'];
   }
   mysqli_close($con);
 }
