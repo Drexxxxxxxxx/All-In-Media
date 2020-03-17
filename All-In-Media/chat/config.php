@@ -1,6 +1,6 @@
 <?php
 	$dbhost = "localhost";
-	$dbname = "phpteste";
+	$dbname = "all-in-media";
 	$dbuser = "root";
 	$dbpass = '';
 	try{

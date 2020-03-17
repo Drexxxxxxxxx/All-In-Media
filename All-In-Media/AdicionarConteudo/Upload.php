@@ -34,7 +34,7 @@ if ($uploadOk == 0) {
 
 function GetLastID ()
 {
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "SELECT * FROM conteudo ORDER BY ID DESC LIMIT 1";
   $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);
@@ -50,7 +50,7 @@ function GetLastID ()
 function savevideo ($nomedoficheiro)
 {
    $texto = $_POST['titulo'];
-$con = mysqli_connect("localhost","root","", "phpteste");
+$con = mysqli_connect("localhost","root","", "all-in-media");
 $sql="insert into conteudo (Nome, Id_Publicador, likes, dislikes, imagem, video) values ('$texto','".$_SESSION['id']."','0','0','','$nomedoficheiro')" ;
 $query=mysqli_query($con,$sql);
 if($query){

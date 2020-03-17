@@ -1,5 +1,5 @@
 <?php
-    $con = mysqli_connect("localhost","root","", "phpteste");
+    $con = mysqli_connect("localhost","root","", "all-in-media");
     $sql = "SELECT * FROM users WHERE LinkAtivo = '".$_REQUEST['Link']."'";
     $query=mysqli_query($con,$sql);
     $num=mysqli_num_rows($query);
@@ -18,7 +18,7 @@
     mysqli_close($con);
 
     function ActivateAccount($id){       
-        $con = mysqli_connect("localhost","root","", "phpteste");
+        $con = mysqli_connect("localhost","root","", "all-in-media");
         $sql = "UPDATE users SET Ativo = 1 WHERE id = ".$id."";
 		$query=mysqli_query($con,$sql);
         mysqli_close($con);

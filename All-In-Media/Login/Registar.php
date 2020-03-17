@@ -143,7 +143,7 @@ if(isset($_POST['submit'])){
 }
 
 function JaexisteEmail($name, $password, $email){
-    $con = mysqli_connect("localhost","root","", "phpteste");
+    $con = mysqli_connect("localhost","root","", "all-in-media");
     $sql = "SELECT * FROM users WHERE email = '".$email."'";
     $query=mysqli_query($con,$sql);
     $num=mysqli_num_rows($query);
@@ -157,7 +157,7 @@ function JaexisteEmail($name, $password, $email){
     mysqli_close($con);
 }
 function JaexisteName($name, $password, $email){
-    $con = mysqli_connect("localhost","root","", "phpteste");
+    $con = mysqli_connect("localhost","root","", "all-in-media");
     $sql = "SELECT * FROM users WHERE name = '".$name."'";
     $query=mysqli_query($con,$sql);
     $num=mysqli_num_rows($query);
@@ -173,7 +173,7 @@ function JaexisteName($name, $password, $email){
 
 function Registarfunction($name, $password, $email)
 {
-    $con = mysqli_connect("localhost","root","", "phpteste");
+    $con = mysqli_connect("localhost","root","", "all-in-media");
     $namecode = hash("sha512", htmlspecialchars($name));
     //Aqui tem que se enviar o email com o link (o link e a pagina com o $namecode)
     $sql = "insert INTO users (name, password, email, Ativo, LinkAtivo) VALUES ('".htmlspecialchars($name)."', '".hash("sha512", htmlspecialchars($password))."', '".htmlspecialchars($email)."', 0, '".$namecode."')";

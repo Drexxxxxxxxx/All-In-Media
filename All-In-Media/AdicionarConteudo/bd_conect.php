@@ -77,7 +77,7 @@ if(isset($_POST['submit'])){
 function saveimage ($name, $image)
 {
    $texto = $_POST['titulo'];
-$con = mysqli_connect("localhost","root","", "phpteste");
+$con = mysqli_connect("localhost","root","", "all-in-media");
 $sql="insert into conteudo (Nome, Id_Publicador, likes, dislikes, imagem, video) values ('$texto','1','0','0','$image','')" ;
 $query=mysqli_query($con,$sql);
 if($query){

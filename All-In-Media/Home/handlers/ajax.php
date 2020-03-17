@@ -4,7 +4,7 @@ session_start();
 if( isset($_REQUEST['action']) ){
 	switch( $_REQUEST['action'] ){
 		case "Like":
-		$con = mysqli_connect("localhost","root","", "phpteste");
+		$con = mysqli_connect("localhost","root","", "all-in-media");
 		$sql="insert INTO likesconteudo (iduser, LikeDislike, idConteudo) VALUES ('".$_SESSION['id']."', 1, '".$_REQUEST['ola']."');";
 		$query=mysqli_query($con,$sql);
 		if($query){
@@ -14,7 +14,7 @@ if( isset($_REQUEST['action']) ){
 		break;
 
 		case "Dislike":
-		$con = mysqli_connect("localhost","root","", "phpteste");
+		$con = mysqli_connect("localhost","root","", "all-in-media");
 		$sql="insert INTO likesconteudo (iduser, LikeDislike, idConteudo) VALUES ('".$_SESSION['id']."', 2, '".$_REQUEST['ola']."');";
 		$query=mysqli_query($con,$sql);
 		if($query){
@@ -24,7 +24,7 @@ if( isset($_REQUEST['action']) ){
 		break;
 
 		case "LikeUpdate":
-		$con = mysqli_connect("localhost","root","", "phpteste");
+		$con = mysqli_connect("localhost","root","", "all-in-media");
 		$sql="update likesconteudo SET LikeDislike = 1 WHERE iduser = '".$_SESSION['id']."' AND idConteudo = '".$_REQUEST['ola']."'";
 		$query=mysqli_query($con,$sql);
 		if($query){
@@ -34,7 +34,7 @@ if( isset($_REQUEST['action']) ){
 		break;
 
 		case "DislikeUpdate":
-		$con = mysqli_connect("localhost","root","", "phpteste");
+		$con = mysqli_connect("localhost","root","", "all-in-media");
 		$sql="update likesconteudo SET LikeDislike = 2 WHERE iduser = '".$_SESSION['id']."' AND idConteudo = '".$_REQUEST['ola']."'";
 		$query=mysqli_query($con,$sql);
 		if($query){
@@ -51,7 +51,7 @@ if( isset($_REQUEST['action']) ){
 			$query->execute([$_REQUEST['id']]);
 		break;
 		case "AddFriend":
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 
 			$query = $db->prepare("select id FROM users WHERE name='" .$_REQUEST['nome']. "'");
 			$query->execute();
@@ -65,13 +65,13 @@ if( isset($_REQUEST['action']) ){
 
 			echo $idpessoa;
 
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 			$query = $db->prepare("INSERT INTO amigos (idPedido, idAceitar, Aceite) VALUES (".$_SESSION['id'].", ?, 0);");
 			$query->execute([$idpessoa]);
 			mysqli_close($con);
 		break;
 		case "CreateGroup":
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 
 
 			if ($con->connect_error) {
@@ -86,55 +86,55 @@ if( isset($_REQUEST['action']) ){
 			
 			$con->close();
 
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 			$query = $db->prepare("INSERT INTO pessoasdogrupo (idpessoa, idgrupo, IsAdmin) VALUES ('".$_SESSION['id']."', '".$last_id."', '1');");
 			$query->execute();
 			mysqli_close($con);
 		break;
 		case "AceitarAmizade":
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 			$query = $db->prepare("UPDATE amigos SET Aceite = 1 WHERE id = ".$_REQUEST['id']."");
 			$query->execute();
 			mysqli_close($con);
 		break;
 		case "RecusarAmizade":
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 			$query = $db->prepare("DELETE FROM amigos WHERE id = ".$_REQUEST['id']."");
 			$query->execute();
 			mysqli_close($con);
 		break;
 		case "Comentar":
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 			$query = $db->prepare("INSERT INTO comentarios (idVideo, idPessoa, texto) VALUES (".$_REQUEST['id'].", ".$_SESSION['id'].", '".$_REQUEST['text']."');");
 			$query->execute();
 			mysqli_close($con);
 		break;
 		case "AddToFavorites":
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 			$query = $db->prepare("INSERT INTO favoritostbl (idVideo, idPessoa) VALUES (".$_REQUEST['id'].", ".$_SESSION['id'].");");
 			$query->execute();
 			mysqli_close($con);
 		break;
 		case "RemoveFromFavorites":
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 			$query = $db->prepare("DELETE FROM favoritostbl WHERE idVideo = ".$_REQUEST['id']."");
 			$query->execute();
 			mysqli_close($con);
 		break;
 		case "SubToChannel":
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 			$query = $db->prepare("INSERT INTO subscritostbl (IdPessoa, IdCanal) VALUES (".$_SESSION['id'].", ".$_REQUEST['id'].");");
 			$query->execute();
 			mysqli_close($con);
 		break;
 		case "UnSubToChannel":
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 			$query = $db->prepare("DELETE FROM subscritostbl WHERE IdCanal = ".$_REQUEST['id']." AND IdPessoa = ".$_SESSION['id'].";");
 			$query->execute();
 			mysqli_close($con);
 		break;
 		case "SearchFunction":
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 
 			$query = $db->prepare("SELECT * FROM conteudo WHERE Nome LIKE '%".$_REQUEST['texto']."%'");
 			$query->execute();
@@ -149,7 +149,7 @@ if( isset($_REQUEST['action']) ){
 			echo $idpessoa;
 		break;
 		case "CheckPassword":
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 
 			$query = $db->prepare("SELECT * FROM users WHERE id = '".$_SESSION['id']."' AND password = '" .hash("sha512", htmlspecialchars($_REQUEST['Password'])). "'");
 			$query->execute();
@@ -161,7 +161,7 @@ if( isset($_REQUEST['action']) ){
 			mysqli_close($con);
 		break;
 		case "ChangePassword":
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 			$query = $db->prepare("UPDATE users SET password = '".hash("sha512", htmlspecialchars($_REQUEST['Password']))."' WHERE id = ".$_SESSION['id']."");
 			$query->execute();
 			mysqli_close($con);
@@ -171,7 +171,7 @@ if( isset($_REQUEST['action']) ){
 			session_destroy();
 		break;
 		case "SearchChatGroup":
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 			$sql = "select grupo.id AS grupoid, grupo.nome, pessoasdogrupo.* FROM pessoasdogrupo, grupo WHERE idpessoa = '".$_SESSION['id']."' and pessoasdogrupo.idgrupo = grupo.id and pessoasdogrupo.IsAdmin != 3 AND grupo.nome LIKE '%".$_REQUEST['texto']."%'"; 			
 			$query=mysqli_query($con,$sql);
 			$num=mysqli_num_rows($query);
@@ -191,7 +191,7 @@ if( isset($_REQUEST['action']) ){
 
 function AddtodivgrupoMenu($Nome, $link, $idpessoasdogrupo, $ultimaLida)
 {
-	$con = mysqli_connect("localhost","root","", "phpteste");
+	$con = mysqli_connect("localhost","root","", "all-in-media");
 	$sql = "SELECT COUNT(*) FROM chat, pessoasdogrupo WHERE chat.id > ".$ultimaLida." AND chat.idGrupo = pessoasdogrupo.idgrupo AND pessoasdogrupo.id = " .$idpessoasdogrupo;
 	$query=mysqli_query($con,$sql);
 	$num=mysqli_num_rows($query);
@@ -208,7 +208,7 @@ function AddtodivgrupoMenu($Nome, $link, $idpessoasdogrupo, $ultimaLida)
 
 function lastmessage($Nome, $link, $idpessoasdogrupo, $NumeroDeMensagensParaLer, $ultimaLida)
 {
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "SELECT * FROM chat, pessoasdogrupo where pessoasdogrupo.id = ".$idpessoasdogrupo." AND pessoasdogrupo.idgrupo = chat.idGrupo ORDER BY chat.ID DESC LIMIT 1";
   $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);

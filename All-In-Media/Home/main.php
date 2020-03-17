@@ -22,7 +22,7 @@ function TransformSlider($num, $count, $query){
       $img=$result['imagem'];
       $id=$result['id'];
           $dbhost = "localhost";
-          $dbname = "phpteste";
+          $dbname = "all-in-media";
           $dbuser = "root";
           $dbpass = '';
           try{
@@ -127,7 +127,7 @@ function TransformSlider($num, $count, $query){
 }
 
 function display(){
-    $con = mysqli_connect("localhost","root","", "phpteste");
+    $con = mysqli_connect("localhost","root","", "all-in-media");
     $sql = "select * from conteudo order by id DESC";
     
      $query=mysqli_query($con,$sql);
@@ -138,7 +138,7 @@ function display(){
 }
 function isFavAlready($idChannel)
 {
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "SELECT * FROM favoritostbl WHERE idPessoa = ".$_SESSION['id']." AND idVideo = " .$idChannel. "";
   $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);
@@ -156,7 +156,7 @@ function isFavAlready($idChannel)
 
 function isSubAlready($idChannel)
 {
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "SELECT * FROM subscritostbl WHERE IdPessoa = ".$_SESSION['id']." AND IdCanal = " .$idChannel. "";
   $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);
@@ -172,7 +172,7 @@ function isSubAlready($idChannel)
 }
 function AddSubscriptionBtn($idChannel)
 {
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "SELECT name FROM users WHERE id=".$idChannel.";";
   $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);
@@ -186,7 +186,7 @@ function AddSubscriptionBtn($idChannel)
 
 function comentarios($id)
 {
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "SELECT * FROM comentarios WHERE idVideo = ".$id." order by id DESC";
   $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);
@@ -206,7 +206,7 @@ function comentarios($id)
 }
 
 function pessoa($idPessoa){
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "SELECT * FROM users WHERE id = ".$idPessoa."";
   $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);
@@ -231,7 +231,7 @@ function Invites($Nome, $link)
 
 function GruposChat()
 {
-    $con = mysqli_connect("localhost","root","", "phpteste");
+    $con = mysqli_connect("localhost","root","", "all-in-media");
     $sql = "select * FROM pessoasdogrupo, grupo WHERE idpessoa = '".$_SESSION['id']."' and pessoasdogrupo.idgrupo = grupo.id and pessoasdogrupo.IsAdmin != 3 ";
     $query=mysqli_query($con,$sql);
     $num=mysqli_num_rows($query);
@@ -247,7 +247,7 @@ function GruposChat()
 
 function InvitesGrupo()
 {
-    $con = mysqli_connect("localhost","root","", "phpteste");
+    $con = mysqli_connect("localhost","root","", "all-in-media");
     $sql = "select pessoasdogrupo.*, grupo.nome FROM pessoasdogrupo, grupo WHERE IsAdmin = 3 AND idpessoa = '".$_SESSION['id']."' AND idgrupo = grupo.id";
     $query=mysqli_query($con,$sql);
     $num=mysqli_num_rows($query);
@@ -263,7 +263,7 @@ function InvitesGrupo()
 
 function PedidosAmizade()
 {
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "select amigos.id AS idamigos, amigos.idPedido, amigos.idAceitar, amigos.Aceite, users.* FROM amigos, users WHERE idAceitar = '".$_SESSION['id']."' and Aceite = 0 and users.id = amigos.idPedido";
   $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);
@@ -288,7 +288,7 @@ function Perfil()
 //Perfil Page
 function PerfilData()
 {
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "SELECT * FROM users WHERE id = '".$_REQUEST['id']."'";
   $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);
@@ -310,7 +310,7 @@ function PerfilData()
 
 function Amigos()
 {
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "SELECT amigos.*, users.id AS iduser, users.name, users.email FROM amigos, users WHERE ((idPedido = '".$_REQUEST['id']."' AND idAceitar = users.id) OR (idAceitar = '".$_REQUEST['id']."' AND idPedido = users.id)) AND Aceite = 1";
   $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);
@@ -328,7 +328,7 @@ function Amigos()
 
 //Mydisplay Page
 function mydisplay(){
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "select * from conteudo WHERE Id_Publicador = ".$_SESSION['id']." order by id DESC";
   
    $query=mysqli_query($con,$sql);
@@ -339,7 +339,7 @@ function mydisplay(){
 
 //Favorites Page 
 function FavoritesToDysplay(){
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "SELECT * FROM favoritostbl WHERE idPessoa = ".$_SESSION['id']."";
   $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);
@@ -368,7 +368,7 @@ function DisplayFavorites($idVideo){
       $sql = $sql . " OR id = " .$value;
     }
   }
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = $sql . " order by id DESC";
   
   $query=mysqli_query($con,$sql);
@@ -379,7 +379,7 @@ function DisplayFavorites($idVideo){
 
 //Subscription Page
 function SubChannelToDysplay(){
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "SELECT * FROM subscritostbl WHERE IdPessoa = ".$_SESSION['id']."";
   $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);
@@ -404,7 +404,7 @@ function SubChannelToDysplay(){
 }
 function DisplaySubChannel($allchanels)
 {
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = $allchanels;
   
    $query=mysqli_query($con,$sql);
@@ -421,7 +421,7 @@ function DisplaySubChannel($allchanels)
 
 function RemoveSubscriptionBtn($idChannel)
 {
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "SELECT name FROM users WHERE id=".$idChannel.";";
   $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);
@@ -436,7 +436,7 @@ function RemoveSubscriptionBtn($idChannel)
 
 //Trending Page
 function Trendisplay(){
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "SELECT conteudo.*, idConteudo, COUNT(*) AS CountOf, SUM(CASE WHEN LikeDislike = 2 THEN 1 ELSE -1 END) as sera FROM likesconteudo, conteudo WHERE idConteudo = conteudo.id GROUP BY idConteudo ORDER BY sera DESC";
   
    $query=mysqli_query($con,$sql);
@@ -448,7 +448,7 @@ function Trendisplay(){
 
 //OneVideo Page
 function OneVideodisplay(){
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   if(isset($_REQUEST['id']))
   {
     $sql = "select * from conteudo WHERE id = ".$_REQUEST['id']." order by id DESC";
@@ -467,7 +467,7 @@ function OneVideodisplay(){
 //Login/Home (Chats) Page
 function GruposChatMenu()
 {
-    $con = mysqli_connect("localhost","root","", "phpteste");
+    $con = mysqli_connect("localhost","root","", "all-in-media");
     $sql = "select grupo.id AS grupoid, grupo.nome, pessoasdogrupo.* FROM pessoasdogrupo, grupo WHERE idpessoa = '".$_SESSION['id']."' and pessoasdogrupo.idgrupo = grupo.id and pessoasdogrupo.IsAdmin != 3 ";
     $query=mysqli_query($con,$sql);
     $num=mysqli_num_rows($query);
@@ -485,7 +485,7 @@ function GruposChatMenu()
 
 function AddtodivgrupoMenu($Nome, $link, $idpessoasdogrupo, $ultimaLida)
 {
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "SELECT COUNT(*) FROM chat, pessoasdogrupo WHERE chat.id > ".$ultimaLida." AND chat.idGrupo = pessoasdogrupo.idgrupo AND pessoasdogrupo.id = " .$idpessoasdogrupo;
   $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);
@@ -503,7 +503,7 @@ function AddtodivgrupoMenu($Nome, $link, $idpessoasdogrupo, $ultimaLida)
 function lastmessage($Nome, $link, $idpessoasdogrupo, $NumeroDeMensagensParaLer, $ultimaLida)
 {
 
-  $con = mysqli_connect("localhost","root","", "phpteste");
+  $con = mysqli_connect("localhost","root","", "all-in-media");
   $sql = "SELECT * FROM chat, pessoasdogrupo where pessoasdogrupo.id = ".$idpessoasdogrupo." AND pessoasdogrupo.idgrupo = chat.idGrupo ORDER BY chat.ID DESC LIMIT 1";
   $query=mysqli_query($con,$sql);
   $num=mysqli_num_rows($query);

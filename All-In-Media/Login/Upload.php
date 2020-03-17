@@ -33,7 +33,7 @@ if ($uploadOk == 0) {
 
 function savevideo ($nomedoficheiro)
 {
-    $con = mysqli_connect("localhost","root","", "phpteste");
+    $con = mysqli_connect("localhost","root","", "all-in-media");
     $sql="insert INTO chat SET idQuemEnviou=17, message='$nomedoficheiro', idGrupo=".$_REQUEST['idgrupo'].", isimage=2" ;
     $query=mysqli_query($con,$sql);
 

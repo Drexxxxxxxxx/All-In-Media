@@ -36,7 +36,7 @@ function Tipos()
 
 function EAdminQuery()
 {
-    $con = mysqli_connect("localhost","root","", "phpteste");
+    $con = mysqli_connect("localhost","root","", "all-in-media");
     $sql = "select * FROM pessoasdogrupo, grupo WHERE idpessoa = '".$_SESSION['id']."' and pessoasdogrupo.idgrupo = grupo.id AND idgrupo = '".$_REQUEST['idgrupo']."'";
     $query=mysqli_query($con,$sql);
     $num=mysqli_num_rows($query);

@@ -108,7 +108,7 @@ if( isset($_REQUEST['action']) ){
 			$query->execute([$_REQUEST['id']]);
 		break;
 		case "RecoverPassword":
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 			$sql = "SELECT * FROM users WHERE email = '".$_REQUEST['email']."'";
 			$query=mysqli_query($con,$sql);
 			$num=mysqli_num_rows($query);
@@ -125,7 +125,7 @@ if( isset($_REQUEST['action']) ){
 			mysqli_close($con);
 		break;
 		case "ChatName":
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 			$sql = "SELECT * FROM grupo WHERE id = '".$_REQUEST['idgrupo']."'";
 			$query=mysqli_query($con,$sql);
 			$num=mysqli_num_rows($query);
@@ -144,7 +144,7 @@ if( isset($_REQUEST['action']) ){
 		break;
 		case "GetLastMessage":
 			session_start();
-			$con = mysqli_connect("localhost","root","", "phpteste");
+			$con = mysqli_connect("localhost","root","", "all-in-media");
 			$sql = "SELECT * FROM pessoasdogrupo WHERE idpessoa = ".$_SESSION['id']." AND idgrupo = ".$_REQUEST['idgrupo']."";
 			$query=mysqli_query($con,$sql);
 			$num=mysqli_num_rows($query);
@@ -159,7 +159,7 @@ if( isset($_REQUEST['action']) ){
 }
 function grupoedele($id)
 {
-    $con = mysqli_connect("localhost","root","", "phpteste");
+    $con = mysqli_connect("localhost","root","", "all-in-media");
     $contador=0;
     $sql = "select * FROM pessoasdogrupo, grupo WHERE idpessoa = '".$_SESSION['id']."' and pessoasdogrupo.idgrupo = grupo.id and pessoasdogrupo.idgrupo='" .$id. "'";
     $query=mysqli_query($con, $sql);

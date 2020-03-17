@@ -4,7 +4,10 @@ include_once '../Home/_header.php';
 
 		<div id="result">
 			<?php
-				EAdminQuery();
+				if (!function_exists('EAdminQuery')) {
+					EAdminQuery();
+
+				}				
 				?>
 		</div>
 		<div class="Adicionarppldiv" style="display: none;"></div>
@@ -185,7 +188,7 @@ if (isset($_POST['submit'])) {
 function saveimage($name, $image)
 {
 
-	$con = mysqli_connect("localhost", "root", "", "phpteste");
+	$con = mysqli_connect("localhost", "root", "", "all-in-media");
 	$sql = "insert INTO chat SET idQuemEnviou=17, message='$image', idGrupo= ".$_REQUEST['idgrupo']." , isimage=1";
 	$query = mysqli_query($con, $sql);
 
@@ -206,7 +209,7 @@ function AddPersonToGroup()
 
 function EAdminQuery()
 {
-    $con = mysqli_connect("localhost","root","", "phpteste");
+    $con = mysqli_connect("localhost","root","", "all-in-media");
     $sql = "select * FROM pessoasdogrupo, grupo WHERE idpessoa = '".$_SESSION['id']."' and pessoasdogrupo.idgrupo = grupo.id AND idgrupo = '".$_REQUEST['idgrupo']."'";
     $query=mysqli_query($con,$sql);
     $num=mysqli_num_rows($query);

@@ -140,7 +140,7 @@ if(isset($_POST['submit'])){
 
 function Loginfunction($name, $password)
 {
-    $con = mysqli_connect("localhost","root","", "phpteste");
+    $con = mysqli_connect("localhost","root","", "all-in-media");
     $sql = "select * from users where name='" .htmlspecialchars($name). "' and password='" .hash("sha512", htmlspecialchars($password)). "'";
    echo $sql;
    $contador=0;

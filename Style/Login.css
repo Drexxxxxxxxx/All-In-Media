@@ -1,0 +1,74 @@
+
+
+#username{
+    background: transparent;
+    color: black;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #4776E6;
+    font-size: 20px;
+    outline: none;
+}
+
+#password{
+    background: transparent;
+    color: black;
+    border: none;
+    width: 100%;
+    border-bottom: 1px solid #4776E6;
+    font-size: 20px;
+    outline: none;
+}
+#email{
+    background: transparent;
+    color: black;
+    border: none;
+    width: 100%;
+    border-bottom: 1px solid #4776E6;
+    font-size: 20px;
+    outline: none;
+}
+
+#btn_login{
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    background-color:  #4776E6;
+    transition: 0.3s;
+    width: 70%;
+
+}#btn_login:hover{
+    
+    background-color:  white;
+
+}
+
+#lbl_user{
+    display: none;
+}
+#lbl_password{
+    display:none;
+}
+.staticImg{
+    background: url('../Images/LoginImages/gif.gif') no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    max-height: 550px;
+    min-height: 200px;
+    border-radius: 5px;
+}
+
+.staticImg_SignUp{
+    background: url('../Images/LoginImages/gif2.gif') no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    max-height: 550px;
+    min-height: 200px;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
